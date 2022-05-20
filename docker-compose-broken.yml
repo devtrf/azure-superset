@@ -1,0 +1,69 @@
+version: '3.7'
+services:  
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - nginxvol:/etc/nginx/sites-available/default
+
+  superset:
+    image: apexdataopsreg.azurecr.io/superset-1.4.0-extended:v1
+    env_file: 
+      - .env
+    environment:
+      - SUPERSET_PORT=8088
+    ports:
+      - "8088:8088"
+    command: "gunicorn --bind  0.0.0.0:8088 --access-logfile - --error-logfile - --workers 5 --worker-class gthread --threads 4 --timeout 200 --limit-request-line 4094 --limit-request-field_size 8190 superset.app:create_app()"
+    volumes:
+      - webappvol:/app/config/
+      - backupsvol:/app/backups/
+
+  worker:
+    image: apexdataopsreg.azurecr.io/superset-1.4.0-extended:v1
+    env_file: 
+      - .env
+    command: "celery --app=superset.tasks.celery_app:app worker --pool=gevent --concurrency=500"
+    volumes:
+      - workervol:/app/config/
+
+  beat:
+    image: apexdataopsreg.azurecr.io/superset-1.4.0-extended:v1
+    env_file: 
+      - .env
+    command: "celery --app=superset.tasks.celery_app:app beat --pidfile /tmp/celerybeat.pid --schedule /tmp/celerybeat-schedule"
+    volumes:
+      - beatvol:/app/config/
+
+
+volumes:
+  nginxvol:
+    driver: azure_file
+    driver_opts:
+      share_name: nginxvol
+      storage_account_name: apexdatasuperset
+
+  webappvol:
+    driver: azure_file
+    driver_opts:
+      share_name: webappvol
+      storage_account_name: apexdatasuperset
+  
+  backupsvol:
+    driver: azure_file
+    driver_opts:
+      share_name: backupsvol
+      storage_account_name: apexdatasuperset
+
+  workervol:
+    driver: azure_file
+    driver_opts:
+      share_name: workervol
+      storage_account_name: apexdatasuperset
+
+  beatvol:
+    driver: azure_file
+    driver_opts:
+      share_name: beatvol
+      storage_account_name: apexdatasuperset

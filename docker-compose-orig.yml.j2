@@ -1,0 +1,73 @@
+version: '3.6'
+services:
+  redis:
+    image: redis
+    restart: on-failure
+    volumes:
+      - redis:/data
+
+  db:
+    image: postgres:{{ superset.db_version }}
+    restart: on-failure
+    env_file: config/.env
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  worker:
+    image: superset-{{ superset.version }}-extended
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: on-failure
+    env_file: config/.env
+    healthcheck:
+      disable: true
+    depends_on:
+      - superset
+      - db
+      - redis
+    command: "celery --app=superset.tasks.celery_app:app worker --pool=gevent --concurrency=500"
+    volumes:
+      - ./config/:/app/config/
+
+  beat:
+    image: superset-{{ superset.version }}-extended
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: on-failure
+    env_file: config/.env
+    healthcheck:
+      disable: true
+    depends_on:
+      - superset
+      - db
+      - redis
+    command: "celery --app=superset.tasks.celery_app:app beat --pidfile /tmp/celerybeat.pid --schedule /tmp/celerybeat-schedule"
+    volumes:
+      - ./config/:/app/config/
+
+  superset:
+    image: superset-{{ superset.version }}-extended
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: on-failure
+    env_file: config/.env
+    environment:
+      - SUPERSET_PORT=8088
+    ports:
+      - "8088:8088"
+    depends_on:
+      - db
+      - redis
+    command: gunicorn --bind  0.0.0.0:8088 --access-logfile - --error-logfile - --workers 5 --worker-class gthread --threads 4 --timeout 200 --limit-request-line 4094 --limit-request-field_size 8190 superset.app:create_app()
+    volumes:
+      - ./config/:/app/config/
+      - ./backups/:/app/backups/
+
+volumes:
+  db:
+    external: false
+  redis:
+    external: false

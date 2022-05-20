@@ -1,0 +1,496 @@
+{
+    "dashboards": [
+        {
+            "__Dashboard__": {
+                "css": "",
+                "dashboard_title": "Wind Analysis",
+                "description": null,
+                "json_metadata": "{\"show_native_filters\": true, \"color_scheme\": \"\", \"refresh_frequency\": 0, \"expanded_slices\": {}, \"label_colors\": {}, \"timed_refresh_immune_slices\": [], \"default_filters\": \"{}\", \"chart_configuration\": {}, \"native_filter_configuration\": [{\"id\": \"NATIVE_FILTER-isCZGRrUm\", \"controlValues\": {\"enableEmptyFilter\": false, \"defaultToFirstItem\": false, \"multiSelect\": true, \"searchAllOptions\": false, \"inverseSelection\": false}, \"name\": \"park filter\", \"filterType\": \"filter_select\", \"targets\": [{\"datasetId\": 28, \"column\": {\"name\": \"PARK_NAME\"}}], \"defaultDataMask\": {\"extraFormData\": {}, \"filterState\": {}, \"ownState\": {}}, \"cascadeParentIds\": [], \"scope\": {\"rootPath\": [\"ROOT_ID\"], \"excluded\": []}, \"type\": \"NATIVE_FILTER\", \"description\": \"\", \"chartsInScope\": [415, 416], \"tabsInScope\": []}], \"remote_id\": 14}",
+                "position_json": "{\"CHART-JVbWG21cRR\":{\"children\":[],\"id\":\"CHART-JVbWG21cRR\",\"meta\":{\"chartId\":415,\"height\":50,\"sliceName\":\"Daily Wind Speed\",\"uuid\":\"97184d0f-35b1-4571-a325-3a4994decefe\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-emuB5zdgY\"],\"type\":\"CHART\"},\"CHART-oxocCaA4Ft\":{\"children\":[],\"id\":\"CHART-oxocCaA4Ft\",\"meta\":{\"chartId\":416,\"height\":50,\"sliceName\":\"Daily Net Generation\",\"uuid\":\"ea4afc4e-de15-48b4-83f9-6529871e6a4c\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-rctiKq1Jn\"],\"type\":\"CHART\"},\"COLUMN-6I9VmFSqY0\":{\"children\":[],\"id\":\"COLUMN-6I9VmFSqY0\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\",\"width\":4},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-YwKV4XrPSu\"],\"type\":\"COLUMN\"},\"COLUMN-ZeAEc9G4S8\":{\"children\":[],\"id\":\"COLUMN-ZeAEc9G4S8\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\",\"width\":4},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-YwKV4XrPSu\"],\"type\":\"COLUMN\"},\"COLUMN-mUhyQDQ2bD\":{\"children\":[],\"id\":\"COLUMN-mUhyQDQ2bD\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\",\"width\":4},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-YwKV4XrPSu\"],\"type\":\"COLUMN\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"DIVIDER-Zc4CRAg-AO\":{\"children\":[],\"id\":\"DIVIDER-Zc4CRAg-AO\",\"meta\":{},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"DIVIDER\"},\"GRID_ID\":{\"children\":[\"ROW-av1VgKrsDG\",\"DIVIDER-Zc4CRAg-AO\",\"ROW-emuB5zdgY\",\"ROW-rctiKq1Jn\",\"ROW-YwKV4XrPSu\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"Wind Analysis\"},\"type\":\"HEADER\"},\"MARKDOWN-MFcvJEqDQY\":{\"children\":[],\"id\":\"MARKDOWN-MFcvJEqDQY\",\"meta\":{\"code\":\"# My markdown text\\n\",\"height\":17,\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-av1VgKrsDG\"],\"type\":\"MARKDOWN\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-YwKV4XrPSu\":{\"children\":[\"COLUMN-6I9VmFSqY0\",\"COLUMN-ZeAEc9G4S8\",\"COLUMN-mUhyQDQ2bD\"],\"id\":\"ROW-YwKV4XrPSu\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-av1VgKrsDG\":{\"children\":[\"MARKDOWN-MFcvJEqDQY\"],\"id\":\"ROW-av1VgKrsDG\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-emuB5zdgY\":{\"children\":[\"CHART-JVbWG21cRR\"],\"id\":\"ROW-emuB5zdgY\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-rctiKq1Jn\":{\"children\":[\"CHART-oxocCaA4Ft\"],\"id\":\"ROW-rctiKq1Jn\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"}}",
+                "slices": [
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics.wind_speed_daily",
+                            "datasource_type": "table",
+                            "id": 415,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"28__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"DATE_INTERVAL_BEG\", \"groupby\": [\"PARK_NAME\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [{\"aggregate\": \"AVG\", \"column\": {\"certification_details\": null, \"certified_by\": null, \"column_name\": \"WIND_SPEED_AVERAGE\", \"description\": null, \"expression\": null, \"filterable\": true, \"groupby\": true, \"id\": 871, \"is_certified\": false, \"is_dttm\": false, \"python_date_format\": null, \"type\": \"FLOAT\", \"type_generic\": 0, \"verbose_name\": null, \"warning_markdown\": null}, \"expressionType\": \"SIMPLE\", \"hasCustomLabel\": false, \"isNew\": false, \"label\": \"AVG(WIND_SPEED_AVERAGE)\", \"optionName\": \"metric_fkw50rszu0c_ty9960swt7l\", \"sqlExpression\": null}], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"slice_id\": 415, \"time_grain_sqla\": \"P1D\", \"time_range\": \"Last month\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"remote_id\": 415, \"datasource_name\": \"wind_speed_daily\", \"schema\": \"analytics\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":28,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"Last month\",\"granularity\":\"DATE_INTERVAL_BEG\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"PARK_NAME\"],\"metrics\":[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":871,\"column_name\":\"WIND_SPEED_AVERAGE\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":false,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(WIND_SPEED_AVERAGE)\",\"optionName\":\"metric_fkw50rszu0c_ty9960swt7l\"}],\"orderby\":[[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":871,\"column_name\":\"WIND_SPEED_AVERAGE\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":false,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(WIND_SPEED_AVERAGE)\",\"optionName\":\"metric_fkw50rszu0c_ty9960swt7l\"},false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"PARK_NAME\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"PARK_NAME\"],\"aggregates\":{\"AVG(WIND_SPEED_AVERAGE)\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"28__table\",\"slice_id\":415,\"granularity_sqla\":\"DATE_INTERVAL_BEG\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"Last month\",\"metrics\":[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":871,\"column_name\":\"WIND_SPEED_AVERAGE\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":false,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(WIND_SPEED_AVERAGE)\",\"optionName\":\"metric_fkw50rszu0c_ty9960swt7l\"}],\"groupby\":[\"PARK_NAME\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Daily Wind Speed",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics.net_gen_daily",
+                            "datasource_type": "table",
+                            "id": 416,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"29__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"GENERATION_DATE\", \"groupby\": [\"PARK_NAME\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [{\"aggregate\": \"AVG\", \"column\": {\"certification_details\": null, \"certified_by\": null, \"column_name\": \"DAILY_NET_GEN\", \"description\": null, \"expression\": null, \"filterable\": true, \"groupby\": true, \"id\": 833, \"is_certified\": false, \"is_dttm\": null, \"python_date_format\": null, \"type\": \"FLOAT\", \"type_generic\": 0, \"verbose_name\": null, \"warning_markdown\": null}, \"expressionType\": \"SIMPLE\", \"hasCustomLabel\": false, \"isNew\": false, \"label\": \"AVG(DAILY_NET_GEN)\", \"optionName\": \"metric_yrisp1fl42_ckp61b5ex5f\", \"sqlExpression\": null}], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"slice_id\": 416, \"time_grain_sqla\": \"P1D\", \"time_range\": \"Last month\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"remote_id\": 416, \"datasource_name\": \"net_gen_daily\", \"schema\": \"analytics\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":29,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"Last month\",\"granularity\":\"GENERATION_DATE\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"PARK_NAME\"],\"metrics\":[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":833,\"column_name\":\"DAILY_NET_GEN\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":null,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(DAILY_NET_GEN)\",\"optionName\":\"metric_yrisp1fl42_ckp61b5ex5f\"}],\"orderby\":[[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":833,\"column_name\":\"DAILY_NET_GEN\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":null,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(DAILY_NET_GEN)\",\"optionName\":\"metric_yrisp1fl42_ckp61b5ex5f\"},false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"PARK_NAME\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"PARK_NAME\"],\"aggregates\":{\"AVG(DAILY_NET_GEN)\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"29__table\",\"slice_id\":416,\"granularity_sqla\":\"GENERATION_DATE\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"Last month\",\"metrics\":[{\"expressionType\":\"SIMPLE\",\"column\":{\"id\":833,\"column_name\":\"DAILY_NET_GEN\",\"verbose_name\":null,\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"is_dttm\":null,\"type\":\"FLOAT\",\"type_generic\":0,\"python_date_format\":null,\"is_certified\":false,\"certified_by\":null,\"certification_details\":null,\"warning_markdown\":null},\"aggregate\":\"AVG\",\"sqlExpression\":null,\"isNew\":false,\"hasCustomLabel\":false,\"label\":\"AVG(DAILY_NET_GEN)\",\"optionName\":\"metric_yrisp1fl42_ckp61b5ex5f\"}],\"groupby\":[\"PARK_NAME\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Daily Net Generation",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    }
+                ],
+                "slug": null
+            }
+        }
+    ],
+    "datasources": [
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "column_name": "CALENDAR_ID",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 867,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 28,
+                            "type": "INT",
+                            "uuid": "93ac23c9-fc08-47af-b292-9448b03c0c56",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "column_name": "DATE_INTERVAL_BEG",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 868,
+                            "is_active": true,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 28,
+                            "type": "DATETIME",
+                            "uuid": "e5525bc8-8a9b-4c12-916b-eac8bf960eb1",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "column_name": "PARK_ID",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 869,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 28,
+                            "type": "INT",
+                            "uuid": "5620fa67-4136-4e86-9972-a5996c36517d",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "column_name": "PARK_NAME",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 870,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 28,
+                            "type": "STRING",
+                            "uuid": "87d977bf-3b12-4157-b151-3728d843b4c3",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "column_name": "WIND_SPEED_AVERAGE",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:49:35"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 871,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 28,
+                            "type": "FLOAT",
+                            "uuid": "f4fd91aa-27df-4cef-b7a3-245cda03da35",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "DATE_INTERVAL_BEG",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:49:17"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:00:33"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 35,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 28,
+                            "uuid": "f88b484e-cd46-4f59-9fb7-59328baf188b",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 28, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics",
+                "sql": "select *\nfrom analytics.wind_speed_daily",
+                "table_name": "wind_speed_daily",
+                "template_params": null
+            }
+        },
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "SOURCE_RN",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 834,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "INT",
+                            "uuid": "3086626c-5cec-4a79-b874-20e6a4926697",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "SOURCE_NAME",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 835,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "STRING",
+                            "uuid": "104e8dd4-7472-4593-8af7-c3db03fd56fc",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "RN",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 836,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "INT",
+                            "uuid": "5418a2cf-1216-4da3-ba8d-341f08474f9e",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "PARK_NAME",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 828,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "STRING",
+                            "uuid": "b3c92d28-f073-40a2-9ae9-2f32934f7fb9",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "PARK_ID",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 829,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "INT",
+                            "uuid": "7bc9d582-eee1-42b7-8658-c041c6c1872f",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "CALENDAR_ID",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 830,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "INT",
+                            "uuid": "23ba8f2f-e376-4920-bb9a-3ec3d3ffab30",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "GENERATION_DATE_END",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 832,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "DATETIME",
+                            "uuid": "0dbc47f2-1c9c-4a8e-aeba-39130be76c37",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:43:24"
+                            },
+                            "column_name": "DAILY_NET_GEN",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 833,
+                            "is_active": null,
+                            "is_dttm": null,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "FLOAT",
+                            "uuid": "a34aa105-0024-4a6f-a48a-626c944a8a4f",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:44:34"
+                            },
+                            "column_name": "GENERATION_DATE",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:43:10"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 831,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 29,
+                            "type": "DATETIME",
+                            "uuid": "b20652d8-b4a9-48c4-b773-354752fcb76e",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "GENERATION_DATE",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-14T14:33:53"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-14T14:01:28"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 36,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 29,
+                            "uuid": "2a016d4c-87fb-46f8-b400-dfad4cef20ca",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 29, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics",
+                "sql": "SELECT \n      park.park_name, \n      net_gen_daily.*\nFROM analytics.net_gen_daily\n\nleft join analytics.analytics.park park using (park_id)",
+                "table_name": "net_gen_daily",
+                "template_params": null
+            }
+        }
+    ]
+}

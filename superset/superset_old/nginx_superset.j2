@@ -1,0 +1,17 @@
+upstream {{ superset.hostname }} {
+server              localhost:{{ superset.port }} fail_timeout=0;
+}
+
+server {
+        listen 80;
+
+	server_name {{ superset.hostname }};  {# {{ superset.fqdn }}; #}
+
+        location / {
+          proxy_set_header  Host $host:$server_port;
+          proxy_set_header  X-Forwarded-Proto $scheme;
+          proxy_set_header  X-Real-IP $remote_addr;
+          proxy_pass        http://{{ superset.hostname }};
+        }
+
+}

@@ -1,0 +1,347 @@
+{
+    "dashboards": [
+        {
+            "__Dashboard__": {
+                "css": "",
+                "dashboard_title": "Model Usage",
+                "description": null,
+                "json_metadata": "{\"show_native_filters\": true, \"color_scheme\": \"\", \"refresh_frequency\": 0, \"expanded_slices\": {}, \"label_colors\": {}, \"timed_refresh_immune_slices\": [], \"default_filters\": \"{}\", \"chart_configuration\": {}, \"native_filter_configuration\": [{\"id\": \"NATIVE_FILTER-LswlNzBDr\", \"controlValues\": {\"enableEmptyFilter\": false}, \"name\": \"Date\", \"filterType\": \"filter_time\", \"targets\": [{}], \"defaultDataMask\": {\"extraFormData\": {\"time_range\": \"DATEADD(DATETIME(\\\"now\\\"), -60, day) : now\"}, \"filterState\": {\"value\": \"DATEADD(DATETIME(\\\"now\\\"), -60, day) : now\"}}, \"cascadeParentIds\": [], \"scope\": {\"rootPath\": [\"ROOT_ID\"], \"excluded\": []}, \"type\": \"NATIVE_FILTER\", \"description\": \"\", \"chartsInScope\": [420, 421], \"tabsInScope\": []}, {\"id\": \"NATIVE_FILTER-4GD-PMzur\", \"controlValues\": {\"enableEmptyFilter\": false, \"defaultToFirstItem\": false, \"multiSelect\": false, \"searchAllOptions\": true, \"inverseSelection\": false}, \"name\": \"Model(s)\", \"filterType\": \"filter_select\", \"targets\": [{\"datasetId\": 39, \"column\": {\"name\": \"model_name\"}}], \"defaultDataMask\": {\"extraFormData\": {}, \"filterState\": {}, \"ownState\": {}}, \"cascadeParentIds\": [], \"scope\": {\"rootPath\": [\"ROOT_ID\"], \"excluded\": []}, \"type\": \"NATIVE_FILTER\", \"description\": \"\", \"chartsInScope\": [420, 421], \"tabsInScope\": []}], \"remote_id\": 17}",
+                "position_json": "{\"CHART-xQCmtrJgcw\":{\"children\":[],\"id\":\"CHART-xQCmtrJgcw\",\"meta\":{\"chartId\":420,\"height\":50,\"sliceName\":\"Model Usage by User\",\"uuid\":\"b7849b61-b2be-432f-8d44-47bbaf5a5c3d\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-zhtylM4jxI\"],\"type\":\"CHART\"},\"CHART-z2OldmTvJy\":{\"children\":[],\"id\":\"CHART-z2OldmTvJy\",\"meta\":{\"chartId\":421,\"height\":50,\"sliceName\":\"Model Usage\",\"uuid\":\"819a43df-b034-48cb-9f36-9455c62b0555\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-IOcjzH5L4W\"],\"type\":\"CHART\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"ROW-zhtylM4jxI\",\"ROW-IOcjzH5L4W\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"Model Usage\"},\"type\":\"HEADER\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-IOcjzH5L4W\":{\"children\":[\"CHART-z2OldmTvJy\"],\"id\":\"ROW-IOcjzH5L4W\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-zhtylM4jxI\":{\"children\":[\"CHART-xQCmtrJgcw\"],\"id\":\"ROW-zhtylM4jxI\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"}}",
+                "slices": [
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics_staging.model_usage",
+                            "datasource_type": "table",
+                            "id": 420,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"39__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"utc_datetime\", \"groupby\": [\"user_name\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"time_grain_sqla\": \"P1D\", \"time_range\": \"DATEADD(DATETIME(\\\"now\\\"), -3, month) : now\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"remote_id\": 420, \"datasource_name\": \"model_usage\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":39,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"DATEADD(DATETIME(\\\"now\\\"), -3, month) : now\",\"granularity\":\"utc_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"user_name\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"user_name\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"user_name\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"39__table\",\"granularity_sqla\":\"utc_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"DATEADD(DATETIME(\\\"now\\\"), -3, month) : now\",\"metrics\":[\"count\"],\"groupby\":[\"user_name\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Model Usage by User",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics_staging.model_usage",
+                            "datasource_type": "table",
+                            "id": 421,
+                            "params": "{\"adhoc_filters\": [{\"clause\": \"HAVING\", \"comparator\": null, \"expressionType\": \"SQL\", \"filterOptionName\": \"filter_o55qznmb2c_13ztox6gme5e\", \"isExtra\": false, \"isNew\": false, \"operator\": null, \"sqlExpression\": \"count(*) > 25\", \"subject\": null}], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"39__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"utc_datetime\", \"groupby\": [\"model_name\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"slice_id\": 421, \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"remote_id\": 421, \"datasource_name\": \"model_usage\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":39,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"utc_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"(count(*) > 25)\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"model_name\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"model_name\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"model_name\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"39__table\",\"slice_id\":421,\"granularity_sqla\":\"utc_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"model_name\"],\"adhoc_filters\":[{\"expressionType\":\"SQL\",\"sqlExpression\":\"count(*) > 25\",\"clause\":\"HAVING\",\"subject\":null,\"operator\":null,\"comparator\":null,\"isExtra\":false,\"isNew\":false,\"filterOptionName\":\"filter_o55qznmb2c_13ztox6gme5e\"}],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Model Usage",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    }
+                ],
+                "slug": null
+            }
+        }
+    ],
+    "datasources": [
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "query_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 948,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "28dfd0c7-12a0-43c4-9a9c-5345a11b2f8c",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 949,
+                            "is_active": true,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "4bc45471-1c22-45e0-bb18-822f6756d186",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "local_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 950,
+                            "is_active": true,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "93c676c4-5f58-48dc-8dab-ff21edfde9c7",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "utc_date_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 951,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "23db4a1b-59dc-454b-8510-1ec83dc279da",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "local_date_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 952,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "90fcdc64-48f7-491e-bc07-3b6c8d152916",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "utc_time_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 953,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "5006fb2f-349e-4dd4-9b1d-c03a388a217f",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "local_time_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 954,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "34ee433e-1948-4e08-9bc8-b9da6efad56c",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "user_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 955,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "f28e0f92-f1f2-44cc-9dac-550be5c3c808",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "role_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 956,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "c07102f8-6897-465c-9ecc-120628d612d5",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "column_name": "model_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 957,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 39,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "e3bd75e8-c107-4106-9a62-16bfddf74d9d",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-17T18:32:54"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": null,
+                            "id": 43,
+                            "metric_name": "count",
+                            "metric_type": "count",
+                            "table_id": 39,
+                            "uuid": "f660f28a-a947-4ab0-be69-e7676f0e3be3",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 39, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": null,
+                "table_name": "model_usage",
+                "template_params": null
+            }
+        }
+    ]
+}

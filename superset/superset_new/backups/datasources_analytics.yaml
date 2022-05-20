@@ -1,0 +1,1991 @@
+databases:
+  - allow_file_upload: true
+    database_name: Apex_Snowflake_Analytics
+    extra: '{"metadata_params":{},"engine_params":{},"schemas_allowed_for_file_upload":[],"allows_virtual_table_explore":true,"cost_estimate_enabled":true}'
+    sqlalchemy_uri: snowflake://RYAN_MEEKINS:XXXXXXXXXX@cw55877.east-us-2.azure/Analytics?role=RYAN_MEEKINS&warehouse=REPORTING
+    tables:
+      - columns:
+          - column_name: PARK_NAME
+            type: STRING
+          - column_name: Budget
+            type: FLOAT
+          - column_name: CATEGORY
+            type: STRING
+          - column_name: Variance
+            type: FLOAT
+          - column_name: Val
+            type: FLOAT
+        metrics:
+          - expression: count(*)
+            metric_name: count
+        schema: analytics
+        sql:
+          "SELECT \"CATEGORY\" AS \"CATEGORY\",\r\n       \"PARK_NAME\" AS \"PARK_NAME\"\
+          ,\r\n       CASE\r\n           WHEN CATEGORY IN ('REVENUE',\r\n            \
+          \                 'PRODUCTION',\r\n                             'DAM_benefit')\
+          \ THEN SUM(VAL)\r\n           ELSE AVG(VAL)\r\n       END AS \"Val\",\r\n  \
+          \     CASE\r\n           WHEN CATEGORY IN ('REVENUE',\r\n                  \
+          \           'PRODUCTION',\r\n                             'DAM_benefit') THEN\
+          \ SUM(VAL_BUDGET)\r\n           ELSE AVG(VAL_BUDGET)\r\n       END AS \"Budget\"\
+          ,\r\n       AVG(CASE\r\n               WHEN val_budget is not null THEN (val-val_budget)/val_budget\r\
+          \n               else null\r\n           END) AS \"Variance\"\r\nFROM\r\n  (with\
+          \ park as\r\n     (SELECT *\r\n      from analytics.park),\r\n        revenue_daily\
+          \ as\r\n     (SELECT *\r\n      FROM analytics.revenue_daily),\r\n        day_ahead_market\
+          \ as\r\n     (SELECT *\r\n      FROM analytics.day_ahead_market_daily),\r\n\
+          \        pha_irradiance as\r\n     (SELECT *\r\n      FROM analytics_staging.pha_irradiance_daily),\r\
+          \n        net_gen as\r\n     (SELECT *\r\n      FROM analytics.net_gen_daily),\r\
+          \n        budgets as\r\n     (SELECT *\r\n      FROM analytics.budgets_daily_pivoted),\r\
+          \n        avg_realized as\r\n     (SELECT *\r\n      FROM analytics.avg_realized_price_daily),\r\
+          \n        availability as\r\n     (SELECT *\r\n      FROM analytics_staging.availabilities_daily),\r\
+          \n        wind as\r\n     (SELECT *\r\n      FROM analytics.wind_speed_daily),\r\
+          \n        actual_pivot as\r\n     (SELECT calendar_id,\r\n             generation_date,\r\
+          \n             park_id,\r\n             park.park_name,\r\n             park.project_type,\r\
+          \n             total_energy_revenue as Revenue,\r\n             net_gen.daily_net_gen\
+          \ as Production,\r\n             CAST(day_ahead_market.day_ahead_market_benefit\
+          \ as FLOAT) as DAM_benefit,\r\n             avg_realized.daily_avg_realized_price\
+          \ as AVG_realized_price,\r\n             availability.contract_availability,\r\
+          \n             availability.BOP_availability,\r\n             availability.project_availability,\r\
+          \n             wind.wind_speed_average as wind_speed\r\n      from revenue_daily\r\
+          \n      left join park using (park_id)\r\n      FULL OUTER join net_gen using\
+          \ (park_id,\r\n                                     calendar_id)\r\n      FULL\
+          \ OUTER join day_ahead_market using (park_id,\r\n                          \
+          \                    calendar_id)\r\n      FULL OUTER join avg_realized using\
+          \ (park_id,\r\n                                          calendar_id)\r\n  \
+          \    FULL OUTER join availability using (park_id,\r\n                      \
+          \                    calendar_id)\r\n      FULL OUTER join wind using (park_id,\r\
+          \n                                  calendar_id)\r\n      where generation_date\
+          \ is not null\r\n      order by calendar_id desc),\r\n        budget_pivot as\r\
+          \n     (SELECT calendar_id,\r\n             budget_date,\r\n             park_id,\r\
+          \n             park.park_name,\r\n             park.project_type,\r\n      \
+          \       CAST(case\r\n                      when (energy_revenue_budget::float\
+          \ is null\r\n                            or net_gen_budget::float is null) then\
+          \ null\r\n                      when (energy_revenue_budget::float = 0\r\n \
+          \                           or net_gen_budget::float = 0) then 0\r\n       \
+          \               else (energy_revenue_budget::float / net_gen_budget::float)::number(38,\
+          \ 15)\r\n                  end as float) as AVG_realized_price,\r\n        \
+          \     energy_revenue_budget as Revenue,\r\n             net_gen_budget as Production,\r\
+          \n             bop_availability_budget as BOP_availability,\r\n            \
+          \ contract_availability_budget as contract_availability,\r\n             project_availability_budget\
+          \ as project_availability,\r\n             wind_speed_budget as wind_speed\r\
+          \n      from budgets\r\n      left join park using (park_id)\r\n      order\
+          \ by calendar_id desc),\r\n        budget_unpivot as\r\n     (SELECT *\r\n \
+          \     from budget_pivot unpivot(val_budget\r\n                             \
+          \   for category in (Revenue, Production, AVG_realized_price, BOP_availability,\
+          \ contract_availability, project_availability, wind_speed))\r\n      order by\
+          \ calendar_id desc),\r\n        actual_unpivot as\r\n     (SELECT *\r\n    \
+          \  from actual_pivot unpivot(val\r\n                                for category\
+          \ in (Revenue, Production, DAM_benefit, AVG_realized_price, BOP_availability,\
+          \ contract_availability, project_availability, wind_speed))\r\n      order by\
+          \ calendar_id desc) SELECT calendar_id,\r\n                                \
+          \        generation_date as actual_generation_date,\r\n                    \
+          \                    budget_date,\r\n                                      \
+          \  park_id,\r\n                                        park_name,\r\n      \
+          \                                  project_type,\r\n                       \
+          \                 category,\r\n                                        val,\r\
+          \n                                        val_budget\r\n   from actual_unpivot\r\
+          \n   full outer join budget_unpivot using (calendar_id,\r\n                \
+          \                         park_id,\r\n                                     \
+          \    category)\r\n   where generation_date > DATEADD(Day, -30, current_date)\r\
+          \n   order by calendar_id desc) AS virtual_table\r\nWHERE \"ACTUAL_GENERATION_DATE\"\
+          \ >= CAST('2022-02-28T23:59:59.000000' AS DATETIME)\r\n  AND \"ACTUAL_GENERATION_DATE\"\
+          \ <= CAST('2022-03-25T00:00:00.000000' AS DATETIME)\r\nGROUP BY \"CATEGORY\"\
+          ,\r\n         \"PARK_NAME\"\r\nORDER BY \"Val\" DESC\r\nLIMIT 1000"
+        table_name: tktest analytics.kpi_unpivot 03/25/2022 12:01:16
+      - columns:
+          - column_name: variance
+            expression:
+              "CASE\r\n    WHEN val_budget is not null THEN (val-val_budget)/val_budget\r\
+              \n    else null\r\nEND"
+            extra: "{}"
+          - column_name: ACTUAL_GENERATION_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: BUDGET_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: VAL_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: VAL
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CATEGORY
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PROJECT_TYPE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics_staging
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\r\n\r\nwith park as (SELECT * from\
+          \ analytics.park),\r\n\r\nrevenue_daily as (SELECT * FROM analytics.revenue_daily),\r\
+          \n\r\nday_ahead_market as (SELECT * FROM analytics.day_ahead_market_daily ),\r\
+          \n\r\npha_irradiance as (SELECT *, local_date_id as calendar_id FROM analytics_staging.pha_irradiance_daily),\r\
+          \n\r\nnet_gen as (SELECT * FROM analytics.net_gen_daily),\r\n\r\nbudgets as\
+          \ (SELECT * FROM analytics.budgets_daily_pivoted),\r\n\r\navg_realized as (SELECT\
+          \ * FROM analytics.avg_realized_price_daily),\r\n\r\navailability as (SELECT\
+          \ * FROM analytics_staging.availabilities_daily),\r\n\r\nwind as (SELECT * FROM\
+          \ analytics.wind_speed_daily),\r\n\r\nsolar_budget as\r\n(select * from analytics_staging.budgets_daily\r\
+          \npivot (sum(budget_value) for budget_category in ('irradiation'))\r\n    as\
+          \ solar_budget (calendar_id, budget_date, budget_date_end, park_id, source,\
+          \ irradiation)\r\nwhere irradiation is not null \r\norder by budget_date desc),\r\
+          \n\r\npha_solar_output as \r\n(select local_date_id as calendar_id, CAST(6 AS\
+          \ INT) AS park_id, performance_ratio from analytics_staging.pha_performance_ratio_daily),\r\
+          \n\r\nactual_pivot as (\r\nSELECT \r\n  calendar_id,\r\n  generation_date,\r\
+          \n  park_id,\r\n  park.park_name,\r\n  park.project_type,\r\n  total_energy_revenue\
+          \ as Revenue,\r\n  net_gen.daily_net_gen as Production,\r\n  CAST(day_ahead_market.day_ahead_market_benefit\
+          \ as FLOAT) as DAM_benefit,\r\n  avg_realized.daily_avg_realized_price as AVG_realized_price,\r\
+          \n  pha_irradiance.IRRADIATION as Insolation,  /*no calendar_id in this table\
+          \ */\r\n  pha_solar_output.performance_ratio,\r\n  availability.contract_availability,\r\
+          \n  availability.BOP_availability,\r\n  availability.project_availability,\r\
+          \n  wind.wind_speed_average as wind_speed\r\nfrom revenue_daily\r\nleft join\
+          \ park using (park_id)\r\nFULL OUTER join net_gen using (park_id, calendar_id)\r\
+          \nFULL OUTER join day_ahead_market using (park_id, calendar_id)\r\nFULL OUTER\
+          \ join avg_realized using (park_id, calendar_id)\r\nFULL OUTER join availability\
+          \ using (park_id, calendar_id)\r\nFULL OUTER join wind using (park_id, calendar_id)\r\
+          \nFULL OUTER join pha_irradiance using (park_id, calendar_id)\r\nFULL OUTER\
+          \ join pha_solar_output using (park_id, calendar_id)\r\nwhere generation_date\
+          \ is not null\r\norder by calendar_id desc\r\n),\r\n\r\nbudget_pivot as (\r\n\
+          SELECT \r\n  calendar_id,\r\n  budget_date,\r\n  park_id,\r\n  park.park_name,\r\
+          \n  park.project_type,\r\n  /*pulled from mega_view_mtd.sql line 74 */\r\n \
+          \ CAST(case\r\n    when (energy_revenue_budget::float is null or net_gen_budget::float\
+          \ is null) then null\r\n    when (energy_revenue_budget::float = 0 or net_gen_budget::float\
+          \ = 0) then 0\r\n    else  (energy_revenue_budget::float / net_gen_budget::float)::number(38,15)\r\
+          \n  end as float) as AVG_realized_price,\r\n  energy_revenue_budget as Revenue,\r\
+          \n  net_gen_budget as Production,\r\n  bop_availability_budget as BOP_availability,\r\
+          \n  contract_availability_budget as contract_availability,\r\n  project_availability_budget\
+          \ as project_availability,\r\n  wind_speed_budget as wind_speed,\r\n  irradiation\
+          \ as Insolation\r\nfrom budgets\r\nleft join park using (park_id)\r\nFULL OUTER\
+          \ join solar_budget using (park_id, calendar_id)\r\norder by calendar_id desc\r\
+          \n),\r\n\r\n/*\r\nunpivot info:\r\nhttps://docs.snowflake.com/en/sql-reference/constructs/unpivot.html\r\
+          \n*/\r\n\r\nbudget_unpivot as (\r\n  SELECT \r\n  *\r\n  from budget_pivot\r\
+          \n  unpivot(val_budget for category in (Revenue,Production, AVG_realized_price,\
+          \ BOP_availability, contract_availability, project_availability, wind_speed,\
+          \ Insolation))\r\n  order by calendar_id desc\r\n),\r\n\r\nactual_unpivot as\
+          \ (\r\nSELECT \r\n*\r\nfrom actual_pivot\r\nunpivot(val for category in (Revenue,Production,\
+          \ DAM_benefit, AVG_realized_price, BOP_availability, contract_availability,\
+          \ project_availability, wind_speed, Insolation, performance_ratio ))\r\norder\
+          \ by calendar_id desc\r\n)\r\n\r\n\r\nSELECT \r\n  calendar_id,\r\n  generation_date\
+          \ as actual_generation_date,\r\n  budget_date,\r\n  park_id,\r\n  park_name,\r\
+          \n  project_type,\r\n  category,\r\n  val,\r\n  val_budget\r\nfrom actual_unpivot\r\
+          \nfull outer join budget_unpivot using (calendar_id, park_id, category)\r\n\
+          where generation_date > DATEADD(month, -1, current_date) and park_id = 6\r\n\
+          order by calendar_id desc"
+        table_name: kpi_unpivot_solar
+      - columns:
+          - column_name: variance
+            expression:
+              "CASE\r\n    WHEN val_budget is not null THEN (val-val_budget)/val_budget\r\
+              \n    else null\r\nEND"
+            extra: "{}"
+          - column_name: ACTUAL_GENERATION_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: BUDGET_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: VAL_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: VAL
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CATEGORY
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PROJECT_TYPE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\n\nwith park as (SELECT * from analytics.park),\n\
+          \nrevenue_daily as (SELECT * FROM analytics.revenue_daily),\n\nday_ahead_market\
+          \ as (SELECT * FROM analytics.day_ahead_market_daily ),\n\npha_irradiance as\
+          \ (SELECT * FROM analytics_staging.pha_irradiance_daily),\n\nnet_gen as (SELECT\
+          \ * FROM analytics.net_gen_daily),\n\nbudgets as (SELECT * FROM analytics.budgets_daily_pivoted),\n\
+          \navg_realized as (SELECT * FROM analytics.avg_realized_price_daily),\n\navailability\
+          \ as (SELECT * FROM analytics_staging.availabilities_daily),\n\nwind as (SELECT\
+          \ * FROM analytics.wind_speed_daily),\n\nactual_pivot as (\nSELECT \n  calendar_id,\n\
+          \  generation_date,\n  park_id,\n  park.park_name,\n  park.project_type,\n \
+          \ total_energy_revenue as Revenue,\n  net_gen.daily_net_gen as Production,\n\
+          \  CAST(day_ahead_market.day_ahead_market_benefit as FLOAT) as DAM_benefit,\n\
+          \  avg_realized.daily_avg_realized_price as AVG_realized_price,\n  /*pha_irradiance.irradiation\
+          \ as Insolation, */ /*no calendar_id in this table */\n  availability.contract_availability,\n\
+          \  availability.BOP_availability,\n  availability.project_availability,\n  wind.wind_speed_average\
+          \ as wind_speed\nfrom revenue_daily\nleft join park using (park_id)\nFULL OUTER\
+          \ join net_gen using (park_id, calendar_id)\nFULL OUTER join day_ahead_market\
+          \ using (park_id, calendar_id)\nFULL OUTER join avg_realized using (park_id,\
+          \ calendar_id)\nFULL OUTER join availability using (park_id, calendar_id)\n\
+          FULL OUTER join wind using (park_id, calendar_id)\nwhere generation_date is\
+          \ not null\norder by calendar_id desc\n),\n\nbudget_pivot as (\nSELECT \n  calendar_id,\n\
+          \  budget_date,\n  park_id,\n  park.park_name,\n  park.project_type,\n  /*pulled\
+          \ from mega_view_mtd.sql line 74 */\n  CAST(case\n    when (energy_revenue_budget::float\
+          \ is null or net_gen_budget::float is null) then null\n    when (energy_revenue_budget::float\
+          \ = 0 or net_gen_budget::float = 0) then 0\n    else  (energy_revenue_budget::float\
+          \ / net_gen_budget::float)::number(38,15)\n  end as float) as AVG_realized_price,\n\
+          \  energy_revenue_budget as Revenue,\n  net_gen_budget as Production,\n  bop_availability_budget\
+          \ as BOP_availability,\n  contract_availability_budget as contract_availability,\n\
+          \  project_availability_budget as project_availability,\n  wind_speed_budget\
+          \ as wind_speed\nfrom budgets\nleft join park using (park_id)\norder by calendar_id\
+          \ desc\n),\n\n/*\nunpivot info:\nhttps://docs.snowflake.com/en/sql-reference/constructs/unpivot.html\n\
+          */\n\nbudget_unpivot as (\n  SELECT \n  *\n  from budget_pivot\n  unpivot(val_budget\
+          \ for category in (Revenue,Production, AVG_realized_price, BOP_availability,\
+          \ contract_availability, project_availability, wind_speed))\n  order by calendar_id\
+          \ desc\n),\n\nactual_unpivot as (\nSELECT \n*\nfrom actual_pivot\nunpivot(val\
+          \ for category in (Revenue,Production, DAM_benefit, AVG_realized_price, BOP_availability,\
+          \ contract_availability, project_availability, wind_speed ))\norder by calendar_id\
+          \ desc\n)\n\n\nSELECT \n  calendar_id,\n  generation_date as actual_generation_date,\n\
+          \  budget_date,\n  park_id,\n  park_name,\n  project_type,\n  category,\n  val,\n\
+          \  val_budget\nfrom actual_unpivot\nfull outer join budget_unpivot using (calendar_id,\
+          \ park_id, category)\nwhere generation_date > DATEADD(Day ,-30, current_date)\
+          \ \norder by calendar_id desc"
+        table_name: kpi_unpivot
+      - columns:
+          - column_name: variance
+            expression:
+              "CASE\r\n    WHEN val_budget is not null THEN (val-val_budget)/val_budget\r\
+              \n    else null\r\nEND"
+            extra: '{"warning_markdown":null}'
+          - column_name: ACTUAL_GENERATION_DATE
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: BUDGET_DATE
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: VAL_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PARK_NAME
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: VAL
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CATEGORY
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PROJECT_TYPE
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+        main_dttm_col: ACTUAL_GENERATION_DATE
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics_staging
+        sql:
+          "with park as (\r\nSELECT \r\n*\r\nfrom analytics.park\r\n),\r\n\r\nrevenue_daily\
+          \ as (SELECT * FROM analytics.revenue_daily),\r\n\r\nday_ahead_market as (SELECT\
+          \ * FROM analytics.day_ahead_market_daily ),\r\n\r\npha_irradiance as (SELECT\
+          \ * FROM analytics_staging.pha_irradiance_daily),\r\n\r\nnet_gen as (SELECT\
+          \ * FROM analytics.net_gen_daily),\r\n\r\nbudgets as (SELECT * FROM analytics.budgets_daily_pivoted),\r\
+          \n\r\nactual_pivot as (\r\nSELECT \r\n  calendar_id,\r\n  generation_date,\r\
+          \n  park_id,\r\n  park.park_name,\r\n  park.project_type,\r\n  total_energy_revenue\
+          \ as Revenue,\r\n  net_gen.daily_net_gen as Production,\r\n  CAST(day_ahead_market.day_ahead_market_benefit\
+          \ as FLOAT) as DAM_benefit\r\n  /* pha_irradiance.irradiation as Insolation\
+          \ */\r\nfrom revenue_daily\r\nleft join park using (park_id)\r\nFULL OUTER join\
+          \ net_gen using (park_id, calendar_id)\r\nFULL OUTER join day_ahead_market using\
+          \ (park_id, calendar_id)\r\nwhere generation_date is not null\r\norder by calendar_id\
+          \ desc\r\n),\r\n\r\nbudget_pivot as (\r\nSELECT \r\n  calendar_id,\r\n  budget_date,\r\
+          \n  park_id,\r\n  park.park_name,\r\n  park.project_type,\r\n  energy_revenue_budget\
+          \ as Revenue,\r\n  net_gen_budget as Production\r\nfrom budgets\r\nleft join\
+          \ park using (park_id)\r\norder by calendar_id desc\r\n),\r\n\r\n/*\r\nunpivot\
+          \ info:\r\nhttps://docs.snowflake.com/en/sql-reference/constructs/unpivot.html\r\
+          \n*/\r\n\r\nbudget_unpivot as (\r\n  SELECT \r\n  *\r\n  from budget_pivot\r\
+          \n  unpivot(val_budget for category in (Revenue,Production))\r\n  order by calendar_id\
+          \ desc\r\n),\r\n\r\nactual_unpivot as (\r\nSELECT \r\n*\r\nfrom actual_pivot\r\
+          \nunpivot(val for category in (Revenue,Production, DAM_benefit))\r\norder by\
+          \ calendar_id desc\r\n)\r\n\r\n\r\nSELECT \r\n  calendar_id,\r\n  generation_date\
+          \ as actual_generation_date,\r\n  budget_date,\r\n  park_id,\r\n  park_name,\r\
+          \n  project_type,\r\n  category,\r\n  val,\r\n  val_budget\r\nfrom actual_unpivot\r\
+          \nfull outer join budget_unpivot using (calendar_id, park_id, category)\r\n\
+          where generation_date > DATEADD(Day ,-30, current_date) \r\norder by calendar_id\
+          \ desc "
+        table_name: MTD Totals (UNPIVOT)
+      - columns:
+          - column_name: production variance
+            expression: (DAILY_NET_GEN-NET_GEN_BUDGET)/NET_GEN_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: NUMERIC
+          - column_name: availability variance
+            expression: (project_availability-project_availability_BUDGET)/project_availability_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: NUMERIC
+          - column_name: wind variance
+            expression: (wind_speed_average-wind_speed_budget)/wind_speed_budget
+            extra: '{"warning_markdown":null}'
+            type: NUMERIC
+          - column_name: revenue variance
+            expression: (total_energy_revenue-energy_revenue_budget)/energy_revenue_budget
+            extra: '{"warning_markdown":null}'
+            type: NUMERIC
+          - column_name: BUDGET_DATE_END
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: BUDGET_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: CONTRACT_AVAILABILITY_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CONTRACT_AVAILABILITY
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: DAY_AHEAD_PARTICIPATION_HOURS
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: BOP_AVAILABILITY_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: BOP_AVAILABILITY
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: NET_CAPACITY_FACTOR_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: DAILY_AVG_REALIZED_PRICE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: DAY_AHEAD_ENERGY_REVENUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ABBREVIATION
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PRE_TAX_CREDIT_VALUE_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: POST_TAX_CREDIT_VALUE_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PRE_TAX_CREDIT_VALUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: POST_TAX_CREDIT_VALUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: WIND_SPEED_AVERAGE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: REV_VAR_FROM_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: DAILY_NCF
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: DAILY_NET_GEN
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: REAL_TIME_ENERGY_REVENUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: TOTAL_ENERGY_REVENUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: ENERGY_PRICE_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: WIND_SPEED_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: ENERGY_REVENUE_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: NET_GEN_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: DAY_AHEAD_AWARDS
+            extra: '{"warning_markdown":null}'
+          - column_name: DAY_AHEAD_MARKET_BENEFIT
+            extra: '{"warning_markdown":null}'
+          - column_name: DAY_AHEAD_OPTIMIZATION
+            extra: '{"warning_markdown":null}'
+          - column_name: DAY_AHEAD_ENERGY
+            extra: '{"warning_markdown":null}'
+          - column_name: DAY_AHEAD_LMP
+            extra: '{"warning_markdown":null}'
+          - column_name: MONTHLY_RUNNING_TOTAL_MARKET_BENEFIT
+            extra: '{"warning_markdown":null}'
+          - column_name: FINANCIAL_ENERGY
+            extra: '{"warning_markdown":null}'
+          - column_name: UNWTD_DART_SPREAD
+            extra: '{"warning_markdown":null}'
+          - column_name: REAL_TIME_ENERGY
+            extra: '{"warning_markdown":null}'
+          - column_name: REAL_TIME_LMP
+            extra: '{"warning_markdown":null}'
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics_staging
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\n\nSELECT \n*\nfrom analytics_staging.mega_view_daily\n\
+          where budget_date = DATEADD(Day, -1, current_date)"
+        table_name: Mega View Yesterday
+      - columns:
+          - column_name: CONTRACT_AVAILABILITY_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: CONTRACT_AVAILABILITY
+            expression: ""
+            type: FLOAT
+          - column_name: DAY_AHEAD_PARTICIPATION_HOURS
+            expression: ""
+            type: INT
+          - column_name: BOP_AVAILABILITY_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: BOP_AVAILABILITY
+            expression: ""
+            type: FLOAT
+          - column_name: NET_CAPACITY_FACTOR_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY
+            expression: ""
+            type: FLOAT
+          - column_name: DAILY_AVG_REALIZED_PRICE
+            expression: ""
+            type: FLOAT
+          - column_name: DAY_AHEAD_ENERGY_REVENUE
+            expression: ""
+            type: FLOAT
+          - column_name: PARK_ABBREVIATION
+            expression: ""
+            type: STRING
+          - column_name: PRE_TAX_CREDIT_VALUE_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: POST_TAX_CREDIT_VALUE_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: PRE_TAX_CREDIT_VALUE
+            expression: ""
+            type: FLOAT
+          - column_name: POST_TAX_CREDIT_VALUE
+            expression: ""
+            type: FLOAT
+          - column_name: WIND_SPEED_AVERAGE
+            expression: ""
+            type: FLOAT
+          - column_name: BUDGET_DATE_END
+            expression: ""
+            type: DATETIME
+          - column_name: BUDGET_DATE
+            expression: ""
+            type: DATETIME
+          - column_name: REV_VAR_FROM_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            expression: ""
+            type: INT
+          - column_name: DAILY_NCF
+            expression: ""
+            type: FLOAT
+          - column_name: DAILY_NET_GEN
+            expression: ""
+            type: FLOAT
+          - column_name: REAL_TIME_ENERGY_REVENUE
+            expression: ""
+            type: FLOAT
+          - column_name: TOTAL_ENERGY_REVENUE
+            expression: ""
+            type: FLOAT
+          - column_name: PARK_NAME
+            expression: ""
+            type: STRING
+          - column_name: ENERGY_PRICE_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: IS_ACTIVE
+            expression: ""
+            type: BOOL
+          - column_name: WIND_SPEED_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: ENERGY_REVENUE_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: NET_GEN_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: PARK_ID
+            expression: ""
+            type: INT
+          - column_name: PROJECT_TYPE
+            expression: ""
+            type: STRING
+          - column_name: DAY_AHEAD_AWARDS
+            expression: ""
+          - column_name: DAY_AHEAD_MARKET_BENEFIT
+            expression: ""
+          - column_name: DAY_AHEAD_OPTIMIZATION
+            expression: ""
+          - column_name: DAY_AHEAD_ENERGY
+            expression: ""
+          - column_name: DAY_AHEAD_LMP
+            expression: ""
+          - column_name: MONTHLY_RUNNING_TOTAL_MARKET_BENEFIT
+            expression: ""
+          - column_name: FINANCIAL_ENERGY
+            expression: ""
+          - column_name: UNWTD_DART_SPREAD
+            expression: ""
+          - column_name: REAL_TIME_ENERGY
+            expression: ""
+          - column_name: REAL_TIME_LMP
+            expression: ""
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":null}'
+            metric_name: count
+        schema: analytics_staging
+        sql:
+          "with park as (\nSELECT \npark_id, \nproject_type,\nis_active\nfrom analytics.park\n\
+          )\n\nSELECT \n*\nfrom analytics_staging.mega_view_daily\nleft join park using\
+          \ (park_id)\nwhere budget_date >= DATEADD(year, -1, current_date) and budget_date\
+          \ <= DATEADD(day, 1, current_date)"
+        table_name: Mega View Last 365
+      - columns:
+          - column_name: MONTH_INTERVAL_BEG
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: WIND_SPEED_AVERAGE
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_NAME
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: WIND_SPEED_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: NET_GEN_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MONTHLY_NET_GEN
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: MONTH_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+        main_dttm_col: MONTH_INTERVAL_BEG
+        metrics:
+          - expression: AVG(WIND_SPEED_Budget)
+            extra: '{"warning_markdown":""}'
+            metric_name: Budget Wind Speed
+            verbose_name: ""
+          - expression: AVG(MONTHLY_NET_GEN)
+            extra: '{"warning_markdown":""}'
+            metric_name: Actual Generation
+            verbose_name: ""
+          - expression: AVG(NET_GEN_BUDGET)
+            extra: '{"warning_markdown":""}'
+            metric_name: Budget Generation
+            verbose_name: ""
+          - expression: AVG(WIND_SPEED_AVERAGE)
+            extra: '{"warning_markdown":""}'
+            metric_name: Actual Wind Speed
+        schema: analytics
+        sql:
+          "with wind_speed as (\r\n  SELECT \r\n    *\r\n  FROM analytics.analytics.wind_speed_monthly\r\
+          \n),\r\n\r\n\r\nnet_gen as (\r\n  select\r\n    *\r\n  from \r\n    analytics.analytics.net_gen_monthly\r\
+          \n),\r\n\r\nbudgets as (\r\n  select\r\n    *\r\n  from \r\n    analytics.analytics.budgets_monthly_pivoted\r\
+          \n),\r\n\r\nmonth as (\r\n  SELECT \r\n    month_id\r\n  FROM \r\n    analytics.month\r\
+          \n),\r\n\r\npark as (\r\n  SELECT \r\n    park_id,\r\n    park_name,\r\n   \
+          \ park_abbreviation\r\n  FROM \r\n    analytics.park\r\n)\r\n\r\nSELECT \r\n\
+          month_id,\r\nbudgets.month_interval_beg,\r\npark_id,\r\npark.park_name,\r\n\
+          wind_speed.wind_speed_average,\r\nnet_gen.monthly_net_gen,\r\nbudgets.wind_speed_budget,\r\
+          \nbudgets.net_gen_budget\r\nFROM \r\nwind_speed\r\nFULL OUTER JOIN net_Gen using\
+          \ (month_id, park_id)\r\nFULL OUTER JOIN budgets using (month_id, park_id)\r\
+          \nFULL OUTER JOIN month using(month_id)\r\nLeft JOIN park using (park_id)\r\n\
+          order by month.month_id desc"
+        table_name: Actual Generation and Windspeed vs. Budget
+      - columns:
+          - column_name: SITE_COD
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: dummy value
+            expression: "1"
+            extra: "{}"
+          - column_name: IGNITION_PARK_ABBREVIATION
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ABBREVIATION
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: BALANCING_AUTHORITY
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: MAINTENANCE_PROVIDER
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: ENERGY_MANAGER
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: TRANSMISSION_OPERATOR
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: IS_ACTIVE_HSE
+            extra: '{"warning_markdown":null}'
+            type: BOOL
+          - column_name: IS_ACTIVE_PF
+            extra: '{"warning_markdown":null}'
+            type: BOOL
+          - column_name: IS_ACTIVE
+            extra: '{"warning_markdown":null}'
+            type: BOOL
+          - column_name: LOCAL_OLSON_TIME_ZONE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PNODE_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PF_PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MARKET_OLSON_TIME_ZONE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: MARKET
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: STATE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: NUMBER_OF_TURBINES
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: TURBINE_MODEL
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: INTERCONNECT
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PROJECT_TYPE
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: OEM
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: OWNER
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: ISO
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: NAMEPLATE_MWH
+            extra: '{"warning_markdown":null}'
+          - column_name: ROTOR_DIAMETER
+            extra: '{"warning_markdown":null}'
+          - column_name: LATITUDE
+            extra: '{"warning_markdown":null}'
+          - column_name: TURBINE_OUTPUT
+            extra: '{"warning_markdown":null}'
+          - column_name: LONGITUDE
+            extra: '{"warning_markdown":null}'
+          - column_name: TOWER_HEIGHT
+            extra: '{"warning_markdown":null}'
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics
+        sql: "SELECT *\r\nFROM analytics.park\r"
+        table_name: Park Info
+      - columns:
+          - column_name: MONTH_INTERVAL_BEG
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: PARK_NAME
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: CUMSUM_NET_GEN_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: NET_GEN_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CUMSUM_MONTHLY_NET_GEN
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MONTHLY_NET_GEN
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: MONTH_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+        main_dttm_col: MONTH_INTERVAL_BEG
+        metrics:
+          - expression: SUM(CUMSUM_NET_GEN_BUDGET)
+            extra: '{"warning_markdown":""}'
+            metric_name: Net Generation Budget
+            verbose_name: Net Generation Budget
+          - expression: SUM(CUMSUM_MONTHLY_NET_GEN)
+            extra: '{"warning_markdown":""}'
+            metric_name: Net Generation
+            verbose_name: Net Generation
+        schema: analytics
+        sql:
+          "with net_gen as (\r\n  SELECT \r\n    *\r\n  FROM analytics.net_gen_monthly\r\
+          \n),\r\n\r\nbudget_gen as (\r\n  SELECT \r\n    *\r\n  FROM analytics.budgets_monthly_pivoted\r\
+          \n),\r\n\r\npark as (\r\n  SELECT \r\n    park_id,\r\n    park_name\r\n  from\
+          \ analytics.park\r\n)\r\n\r\nSELECT \r\nmonth_id,\r\nmonth_interval_beg,\r\n\
+          park_id, \r\npark.park_name,\r\nnet_gen.monthly_net_gen,\r\nsum(net_gen.monthly_net_gen)\
+          \ OVER (PARTITION BY park_id, park_id ORDER BY date_trunc('month', month_interval_end))\
+          \ AS CUMSUM_monthly_net_gen,\r\nnet_gen_budget,\r\nsum(net_gen_budget) OVER\
+          \ (PARTITION BY park_id, park_id ORDER BY date_trunc('month', month_interval_end))\
+          \ AS CUMSUM_net_gen_budget\r\nFROM \r\nbudget_gen\r\nLeft JOIN park using(park_id)\r\
+          \nFULL OUTER JOIN net_gen using (month_id, park_id)\r\nwhere month_id >= 20220101\
+          \ and \r\n      month_id <= 20221201 \r\norder by month_id desc"
+        table_name: Cumulative generation Budget vs. Actual
+      - columns:
+          - column_name: <new column>
+            expression: <enter SQL expression here>
+            extra: "{}"
+          - column_name: MONTH_GENERATED_INTERVAL_BEG
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: WIND_SPEED_AVERAGE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: WIND_SPEED_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: NET_GEN_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MONTHLY_NET_GEN
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: MONTH_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+        main_dttm_col: MONTH_GENERATED_INTERVAL_BEG
+        metrics:
+          - description: this is the summation of net_gen budget
+            expression: SUM(NET_GEN_BUDGET)
+            extra: '{"warning_markdown":""}'
+            metric_name: Sum Net Gen Budget
+            verbose_name: this is the summation of net_gen budget
+        schema: analytics
+        sql:
+          "with wind_speed as (\r\n  SELECT \r\n    *\r\n  FROM analytics.analytics.wind_speed_monthly\r\
+          \n),\r\n\r\n\r\nnet_gen as (\r\n  select\r\n    *\r\n  from \r\n    analytics.analytics.net_gen_monthly\r\
+          \n),\r\n\r\nbudgets as (\r\n  select\r\n    *\r\n  from \r\n    analytics.analytics.budgets_monthly_pivoted\r\
+          \n),\r\n\r\nmonth as (\r\n  SELECT \r\n    month_id\r\n  FROM \r\n    analytics.month\r\
+          \n)\r\n\r\nSELECT \r\nmonth_id,\r\nnet_gen.month_generated_interval_beg,\r\n\
+          park_id,\r\nwind_speed.park_name,\r\nwind_speed.wind_speed_average,\r\nnet_gen.monthly_net_gen,\r\
+          \nbudgets.wind_speed_budget,\r\nbudgets.net_gen_budget\r\nFROM \r\nwind_speed\r\
+          \nFULL OUTER JOIN net_Gen using (month_id, park_id)\r\nFULL OUTER JOIN budgets\
+          \ using (month_id, park_id)\r\nFULL OUTER JOIN month using(month_id)\r\nwhere\
+          \ month.month_id <= 20220601 /*and Park_id = 6*/\r\norder by month.month_id\
+          \ desc"
+        table_name: Actual Generation and Windspeed vs. Budget 03/30/2022 13:27:54
+      - columns:
+          - column_name: MONTH_INTERVAL_BEG
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: CONTRACT_AVAILABILITY_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: CONTRACT_AVAILABILITY
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY_BUDGET
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: BOP_AVAILABILITY
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_NAME
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MONTH_ID
+            expression: ""
+            extra: '{"warning_markdown":null}'
+            type: INT
+        main_dttm_col: MONTH_INTERVAL_BEG
+        metrics:
+          - expression: avg(Contract_Availability_Budget)
+            extra: '{"warning_markdown":""}'
+            metric_name: Contract Availability Budget
+            verbose_name: ""
+          - expression: avg(Project_Availability)
+            extra: '{"warning_markdown":""}'
+            metric_name: Site Availability Budget
+            verbose_name: ""
+          - expression: avg(Contract_Availability)
+            extra: '{"warning_markdown":""}'
+            metric_name: Contract Availability
+            verbose_name: ""
+          - expression: avg(Project_Availability_budget)
+            extra: '{"warning_markdown":""}'
+            metric_name: Site Availability
+        schema: analytics
+        sql:
+          "with avail as (\nSELECT month_interval_beg,\n       month_id,\n       park_id,\n\
+          \       park_name,\n       project_availability,\n       bop_availability,\n\
+          \       contract_availability\nFROM analytics.availabilities\n),\n\nbudget as\
+          \ (\n  SELECT \n    *\n  FROM analytics.budgets_monthly_pivoted\n)\n\nSELECT\
+          \ \nmonth_interval_beg,\nmonth_id,\npark_id,\npark_name,\nproject_availability,\n\
+          bop_availability,\ncontract_availability,\nbudget.contract_availability_budget,\n\
+          budget.project_availability_budget\nfrom avail\nOUTER JOIN budget using (month_id,\
+          \ park_id)\n"
+        table_name: Availabilities vs Budget
+      - cache_timeout: 43200
+        columns:
+          - column_name: local_interval_beg
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_interval_beg
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_enqueued_time
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: local_date_id_interval_beg
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: utc_date_id_interval_beg
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: local_time_id_interval_beg
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: utc_time_id_interval_beg
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: park_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: timestamp_int
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: sequence_number
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: offset_number
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: local_olson_time_zone
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: topic_edge_node_id
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: ignition_park_abbreviation
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: tag_data_type
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: ignition_tag_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: topic_device_id
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: park_abbreviation
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: topic_namespace
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: topic_type
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: granularity
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(3)
+          - column_name: tag_value
+            extra: '{"warning_markdown":null}'
+            type: VARIANT
+          - column_name: system_properties
+            extra: '{"warning_markdown":null}'
+            type: VARIANT
+          - column_name: properties
+            extra: '{"warning_markdown":null}'
+            type: VARIANT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_ignition_raw
+      - columns:
+          - column_name: LOCAL_DATETIME
+            expression: ""
+            type: DATETIME
+          - column_name: WDT_GENERATION_FORECAST
+            expression: ""
+            type: FLOAT
+          - column_name: TNSK_GENERATION_FORECAST
+            expression: ""
+            type: FLOAT
+          - column_name: UTC_DATETIME
+            expression: ""
+            type: DATETIME
+          - column_name: PARK_NAME
+            expression: ""
+            type: STRING
+          - column_name: PARK_ID
+            expression: ""
+            type: INT
+          - column_name: PROJECT_TYPE
+            expression: ""
+            type: STRING
+          - column_name: WIND_SPEED_80M_MS
+            expression: ""
+          - column_name: SRAD_WM2
+            expression: ""
+        main_dttm_col: LOCAL_DATETIME
+        metrics:
+          - expression: SUM(TNSK_GENERATION_FORECAST)
+            extra: '{"warning_markdown":""}'
+            metric_name: TNSK (MWh)
+            verbose_name: TNSK (MWh)
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql:
+          "with forcast as (\r\nSELECT \r\n  utc_datetime,\r\n  local_datetime,\r\n\
+          \  park_id,\r\n  tnsk_generation_forecast,\r\n  wdt_generation_forecast\r\n\
+          FROM \r\n  analytics_staging.gen_forecast_hourly\r\n),\r\n\r\npark as (\r\n\
+          SELECT \r\npark_id, \r\npark_name,\r\npark_abbreviation,\r\nproject_type,\r\n\
+          is_active\r\nfrom analytics.park\r\n),\r\n\r\nweather as (\r\nSELECT \r\n  utc_datetime,\r\
+          \n  local_datetime,\r\n  park_id,\r\n  park_name,\r\n  wind_speed_80m_ms,\r\n\
+          \  srad_wm2\r\nFROM analytics_staging.weather_forecast_hourly\r\nwhere wind_speed_80m_ms\
+          \ is not null and srad_wm2 is not null \r\nand utc_datetime <= DATEADD(Day ,3\
+          \ , current_date) and  utc_datetime >= DATEADD(Day ,-3 , current_date)\r\norder\
+          \ by local_datetime desc\r\n)\r\n\r\n\r\nSELECT \r\n  utc_datetime,\r\n  local_datetime,\r\
+          \n  park_id,\r\n  park.project_type,\r\n  weather.park_name,\r\n  tnsk_generation_forecast,\r\
+          \n  wdt_generation_forecast,\r\n  weather.wind_speed_80m_ms,\r\n  weather.srad_wm2\r\
+          \nFROM \r\nforcast\r\nright JOIN weather using (local_datetime, park_id)\r\n\
+          left join park using (park_id)\r\norder by local_datetime desc\r\n"
+        table_name: Day-Ahead Forecast
+      - columns:
+          - column_name: dbt_incremental_model_update_time
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: last_load_time
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: pipe_received_time
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: first_commit_time
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: utc_last_load_time_ntz
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: file_path_timestamp
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_last_load_time
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: id
+            type: DECIMAL(19, 0)
+          - column_name: first_error_character_pos
+            type: DECIMAL(38, 0)
+          - column_name: first_error_line_number
+            type: DECIMAL(38, 0)
+          - column_name: table_catalog_id
+            type: DECIMAL(38, 0)
+          - column_name: table_schema_id
+            type: DECIMAL(38, 0)
+          - column_name: event_hub_partition
+            type: DECIMAL(38, 0)
+          - column_name: table_id
+            type: DECIMAL(38, 0)
+          - column_name: row_parsed
+            type: DECIMAL(38, 0)
+          - column_name: error_count
+            type: DECIMAL(38, 0)
+          - column_name: row_count
+            type: DECIMAL(38, 0)
+          - column_name: file_size
+            type: DECIMAL(38, 0)
+          - column_name: error_limit
+            type: DECIMAL(38, 0)
+          - column_name: file_path_in_partition
+            type: VARCHAR(16777216)
+          - column_name: first_error_column_name
+            type: VARCHAR(16777216)
+          - column_name: table_catalog_name
+            type: VARCHAR(16777216)
+          - column_name: table_schema_name
+            type: VARCHAR(16777216)
+          - column_name: pipe_catalog_name
+            type: VARCHAR(16777216)
+          - column_name: pipe_schema_name
+            type: VARCHAR(16777216)
+          - column_name: first_error_message
+            type: VARCHAR(16777216)
+          - column_name: table_name
+            type: VARCHAR(16777216)
+          - column_name: stage_location
+            type: VARCHAR(16777216)
+          - column_name: file_name
+            type: VARCHAR(16777216)
+          - column_name: pipe_name
+            type: VARCHAR(16777216)
+          - column_name: status
+            type: VARCHAR(16777216)
+        main_dttm_col: last_load_time
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        table_name: stg_ignition_snowpipe_copy_history
+      - columns:
+          - column_name: MONTH_INTERVAL_BEG
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: MONTH_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: TOTAL_NEAR_MISS_YTD
+            extra: '{"warning_markdown":null}'
+          - column_name: TOTAL_RECORD_YTD
+            extra: '{"warning_markdown":null}'
+          - column_name: TOTAL_HOURS_YTD
+            extra: '{"warning_markdown":null}'
+          - column_name: TRIR
+            extra: '{"warning_markdown":null}'
+        main_dttm_col: MONTH_INTERVAL_BEG
+        metrics:
+          - expression: MAX(TOTAL_HOURS_YTD)
+            extra: "{}"
+            metric_name: Total Labor Hours
+            verbose_name: Total Labor Hours
+          - expression: MAX(TOTAL_NEAR_MISS_YTD)
+            extra: "{}"
+            metric_name: Near Miss
+            verbose_name: Near Misses
+          - expression: MAX(TOTAL_RECORD_YTD)
+            extra: "{}"
+            metric_name: Recordables
+            verbose_name: Recordable Incidents
+          - expression: MAX(TRIR)
+            extra: '{"warning_markdown":""}'
+            metric_name: TRIR
+            verbose_name: TRIR
+        schema: analytics
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\n\nSELECT month_id,\n       month_interval_beg,\n\
+          \       park_id,\n       park_name,\n       total_hours_ytd,\n       total_near_miss_ytd,\n\
+          \       total_record_ytd,\n       trir\nFROM analytics.safety_annual"
+        table_name: Safety Summary YTD
+      - columns:
+          - column_name: site_cod
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: number_of_turbines
+            type: DECIMAL(38, 0)
+          - column_name: park_id
+            type: DECIMAL(38, 0)
+          - column_name: nameplate_mwh
+            type: DECIMAL(38, 6)
+          - column_name: rotor_diameter
+            type: DECIMAL(38, 6)
+          - column_name: turbine_output
+            type: DECIMAL(38, 6)
+          - column_name: tower_height
+            type: DECIMAL(38, 6)
+          - column_name: latitude
+            type: DECIMAL(38, 6)
+          - column_name: longitude
+            type: DECIMAL(38, 6)
+          - column_name: local_olson_time_zone
+            type: VARCHAR(16777216)
+          - column_name: market_olson_time_zone
+            type: VARCHAR(16777216)
+          - column_name: ignition_park_abbreviation
+            type: VARCHAR(16777216)
+          - column_name: pf_park_id
+            type: VARCHAR(16777216)
+          - column_name: park_abbreviation
+            type: VARCHAR(16777216)
+          - column_name: balancing_authority
+            type: VARCHAR(16777216)
+          - column_name: maintenance_provider
+            type: VARCHAR(16777216)
+          - column_name: energy_manager
+            type: VARCHAR(16777216)
+          - column_name: transmission_operator
+            type: VARCHAR(16777216)
+          - column_name: park_name
+            type: VARCHAR(16777216)
+          - column_name: pnode_name
+            type: VARCHAR(16777216)
+          - column_name: turbine_model
+            type: VARCHAR(16777216)
+          - column_name: project_type
+            type: VARCHAR(16777216)
+          - column_name: market
+            type: VARCHAR(16777216)
+          - column_name: state
+            type: VARCHAR(16777216)
+          - column_name: interconnect
+            type: VARCHAR(16777216)
+          - column_name: oem
+            type: VARCHAR(16777216)
+          - column_name: owner
+            type: VARCHAR(16777216)
+          - column_name: iso
+            type: VARCHAR(16777216)
+          - column_name: is_active_hse
+            type: BOOLEAN
+          - column_name: is_active_pf
+            type: BOOLEAN
+          - column_name: is_active
+            type: BOOLEAN
+        main_dttm_col: site_cod
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: analytics
+        table_name: park
+      - columns:
+          - column_name: GENERATION_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: revenue_variance
+            expression: (revenue-revenue_budget)/revenue_budget
+            extra: '{"warning_markdown":null}'
+          - column_name: CALENDAR_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PRODUCTION_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: REVENUE_BUDGET
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PRODUCTION
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: REVENUE
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: DAM_BENEFIT
+            extra: '{"warning_markdown":null}'
+        main_dttm_col: GENERATION_DATE
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics
+        sql:
+          "with park as (\r\nSELECT \r\npark_id, \r\npark_name,\r\npark_abbreviation\r\
+          \nfrom analytics.park\r\n),\r\n\r\nrevenue_daily as (\r\nSELECT \r\n*\r\nFROM\
+          \ analytics.revenue_daily\r\n),\r\n\r\nday_ahead_market as (\r\nSELECT\r\n*\r\
+          \nFROM analytics.day_ahead_market_daily\r\n),\r\n\r\npha_irradiance as (\r\n\
+          SELECT \r\n*\r\nFROM analytics_staging.pha_irradiance_daily\r\n),\r\n\r\nnet_gen\
+          \ as (\r\nSELECT \r\n*\r\nFROM analytics.net_gen_daily\r\n),\r\n\r\nbudgets\
+          \ as(\r\nSELECT *\r\nFROM analytics.budgets_daily_pivoted\r\n)\r\n\r\n\r\nSELECT\
+          \ \r\ncalendar_id,\r\ngeneration_date,\r\npark.park_id,\r\npark.park_name,\r\
+          \ntotal_energy_revenue as Revenue,\r\nbudgets.energy_revenue_budget as Revenue_Budget,\r\
+          \nnet_gen.daily_net_gen as Production,\r\nbudgets.net_gen_budget as Production_Budget,\r\
+          \nday_ahead_market.day_ahead_market_benefit as DAM_benefit\r\n/* pha_irradiance.irradiation\
+          \ as Insolation */\r\nfrom revenue_daily\r\nleft join park using (park_id)\r\
+          \nFULL OUTER join net_gen using (park_id, calendar_id)\r\nFULL OUTER join day_ahead_market\
+          \ using (park_id, calendar_id)\r\nFULL OUTER join budgets using (park_id, calendar_id)\r\
+          \nwhere generation_date is not null \r\norder by calendar_id desc"
+        table_name: MTD Totals
+      - columns:
+          - column_name: PARK_ABBREVIATION
+            expression: ""
+            type: STRING
+          - column_name: MONTH_GENERATED_INTERVAL_BEG
+            expression: ""
+            type: DATETIME
+          - column_name: MONTH_INTERVAL_END
+            expression: ""
+            type: DATETIME
+          - column_name: TOTAL_ENERGY_REVENUE
+            expression: ""
+            type: FLOAT
+          - column_name: PARK_NAME
+            expression: ""
+            type: STRING
+          - column_name: IS_ACTIVE
+            expression: ""
+            type: BOOL
+          - column_name: ENERGY_REVENUE_BUDGET
+            expression: ""
+            type: FLOAT
+          - column_name: PARK_ID
+            expression: ""
+            type: INT
+          - column_name: PROJECT_TYPE
+            expression: ""
+            type: STRING
+          - column_name: MONTH_ID
+            expression: ""
+            type: INT
+        main_dttm_col: MONTH_INTERVAL_END
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics
+        sql:
+          "with park as (\r\nSELECT \r\npark_id, \r\npark_name,\r\npark_abbreviation,\r\
+          \nproject_type,\r\nis_active\r\nfrom analytics.park\r\n),\r\n\r\nrevenue as(\
+          \ SELECT * from analytics.revenue_monthly),\r\n\r\nbudgets as (SELECT* from\
+          \ analytics.budgets_monthly_pivoted)\r\n\r\nSELECT \r\nmonth_id,\r\nmonth_generated_interval_beg,\r\
+          \nmonth_interval_end,\r\npark_id, \r\npark.park_name,\r\npark.park_abbreviation,\r\
+          \npark.project_type,\r\npark.is_active,\r\nrevenue.total_energy_revenue,\r\n\
+          energy_revenue_budget\r\nFROM \r\nbudgets\r\nleft join park using (park_id)\r\
+          \nleft join revenue using (park_id, month_id)\r\norder by month_id desc"
+        table_name: Actual Revenue versus Budget
+      - columns:
+          - column_name: MONTH_INTERVAL_BEG
+            is_dttm: true
+            type: DATETIME
+          - column_name: CONTRACT_AVAILABILITY
+            type: FLOAT
+          - column_name: BOP_AVAILABILITY
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY
+            type: FLOAT
+          - column_name: PARK_NAME
+            type: STRING
+          - column_name: PARK_ID
+            type: INT
+          - column_name: MONTH_ID
+            type: INT
+        metrics:
+          - expression: count(*)
+            metric_name: count
+        schema: analytics
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\nSELECT month_interval_beg,\n     \
+          \  month_id,\n       park_id,\n       park_name,\n       project_availability,\n\
+          \       bop_availability,\n       contract_availability\nFROM analytics.availabilities"
+        table_name: AVAILABILITIES
+      - columns:
+          - column_name: month_generated_interval_beg
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: month_generated_interval_end
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: rn
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(18, 0)
+          - column_name: source_rn
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(1, 0)
+          - column_name: park_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: month_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: source
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: monthly_net_gen
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: month_generated_interval_beg
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics
+        sql:
+          "SELECT \n      park.park_name, \n      net_gen_monthly.*\nFROM analytics.net_gen_monthly\n\
+          left join \"ANALYTICS\".\"ANALYTICS\".\"PARK\"  using (Park_id)\n"
+        table_name: net_gen_monthly
+      - columns:
+          - column_name: GENERATION_DATE
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: GENERATION_DATE_END
+            extra: '{"warning_markdown":null}'
+            type: DATETIME
+          - column_name: CALENDAR_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: DAILY_NET_GEN
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: SOURCE_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: PARK_ID
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: SOURCE_RN
+            extra: '{"warning_markdown":null}'
+            type: INT
+          - column_name: RN
+            extra: '{"warning_markdown":null}'
+            type: INT
+        main_dttm_col: GENERATION_DATE
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics
+        sql:
+          "SELECT \n      park.park_name, \n      net_gen_daily.*\nFROM analytics.net_gen_daily\n\
+          \nleft join analytics.analytics.park park using (park_id)"
+        table_name: net_gen_daily
+      - columns:
+          - column_name: published_local_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: published_utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: _loaded_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: market_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: published_date
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_zone
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: feed_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: published_hour
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: date
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_value
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_morningstar_ercot_sevendayloadforecastloadzoneabsolute
+      - columns:
+          - column_name: published_local_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: published_utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: _loaded_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: market_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: published_date
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_zone
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: feed_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: published_hour
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: date
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_value
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute
+      - columns:
+          - column_name: CONTRACT_AVAILABILITY
+            type: FLOAT
+          - column_name: BOP_AVAILABILITY
+            type: FLOAT
+          - column_name: PROJECT_AVAILABILITY
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            type: INT
+          - column_name: PARK_ID
+            type: INT
+          - column_name: MONTH_ID
+            type: INT
+        metrics:
+          - expression: count(*)
+            metric_name: count
+        schema: analytics_staging
+        sql:
+          "-- Note: Unless you save your query, these tabs will NOT persist if you\
+          \ clear your cookies or change browsers.\nSELECT park_id,\n       calendar_id,\n\
+          \       month_id,\n       project_availability,\n       bop_availability,\n\
+          \       contract_availability\nFROM analytics_staging.availabilities_daily"
+        table_name: AVAILABILITIES_DAILY
+      - columns:
+          - column_name: test_execution_time
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: metadata_last_updated_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: number_of_failures
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: test_table_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: test_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: raw_sql
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: description
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: model
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: severity
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: test_result
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(7)
+        main_dttm_col: test_execution_time
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: most_recent_dbt_test_results
+      - columns:
+          - column_name: test_execution_time
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_LTZ
+          - column_name: metadata_last_updated_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: number_of_failures
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: test_table_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: test_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: raw_sql
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: description
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: model
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: severity
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: test_result
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(7)
+        main_dttm_col: last_test_run
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: dbt_test_results
+      - columns:
+          - column_name: published_date
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATE
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: _loaded_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: market_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: forecast_day
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_zone
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: feed_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: model
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_value
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone
+      - columns:
+          - column_name: published_date
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATE
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: _loaded_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: market_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: forecast_day
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_zone
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: feed_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: dstflag
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: forecast_value
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast
+      - columns:
+          - column_name: local_datetime
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: utc_datetime
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: local_date_id
+            type: DECIMAL(38, 0)
+          - column_name: utc_date_id
+            type: DECIMAL(38, 0)
+          - column_name: local_time_id
+            type: DECIMAL(38, 0)
+          - column_name: utc_time_id
+            type: DECIMAL(38, 0)
+          - column_name: model_name
+            type: VARCHAR(16777216)
+          - column_name: role_name
+            type: VARCHAR(16777216)
+          - column_name: user_name
+            type: VARCHAR(16777216)
+          - column_name: query_id
+            type: VARCHAR(16777216)
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        table_name: model_usage
+      - columns:
+          - column_name: MONTH_GENERATED_INTERVAL_END
+            is_dttm: true
+            type: DATETIME
+          - column_name: DAY_AHEAD_ENERGY_REVENUE
+            type: FLOAT
+          - column_name: REAL_TIME_ENERGY_REVENUE
+            type: FLOAT
+          - column_name: TOTAL_ENERGY_REVENUE
+            type: FLOAT
+          - column_name: PARK_NAME
+            type: STRING
+        metrics:
+          - expression: count(*)
+            metric_name: count
+        schema: analytics
+        sql:
+          "SELECT\r\n   \"MONTH_GENERATED_INTERVAL_END\",\r\n   \"DAY_AHEAD_ENERGY_REVENUE\"\
+          , \r\n   \"REAL_TIME_ENERGY_REVENUE\", \r\n   \"TOTAL_ENERGY_REVENUE\",\r\n\
+          \   park.park_name\r\nFROM\r\n  \"ANALYTICS\".\"ANALYTICS\".\"REVENUE_MONTHLY\"\
+          \r\nleft join \"ANALYTICS\".\"ANALYTICS\".\"PARK\"  using (Park_id)\r\nwhere\
+          \ revenue_monthly.month_generated_interval_end >= DATEADD(Day ,-90, current_date)"
+        table_name: revenue_monthly
+      - columns:
+          - column_name: MONTH_GENERATED_INTERVAL_END
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: DATETIME
+          - column_name: PARK_NAME
+            extra: '{"warning_markdown":null}'
+            type: STRING
+          - column_name: MONTHLY_NET_GEN
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        metrics:
+          - expression: count(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+        schema: analytics
+        sql:
+          "SELECT \n      park.park_name, \n      month_generated_interval_end,\n \
+          \     monthly_net_gen\nFROM analytics.net_gen_monthly\n\nleft join \"ANALYTICS\"\
+          .\"ANALYTICS\".\"PARK\"  using (Park_id)\n"
+        table_name: revenue_monthly_joinedw_park
+      - columns:
+          - column_name: utc_datetime
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: _loaded_at
+            extra: '{"warning_markdown":null}'
+            is_dttm: true
+            type: TIMESTAMP_TZ
+          - column_name: market_id
+            extra: '{"warning_markdown":null}'
+            type: DECIMAL(38, 0)
+          - column_name: feed_name
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: pubcol
+            extra: '{"warning_markdown":null}'
+            type: VARCHAR(16777216)
+          - column_name: pubval
+            extra: '{"warning_markdown":null}'
+            type: FLOAT
+        main_dttm_col: utc_datetime
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics_staging
+        sql: ""
+        table_name: stg_morningstar_ercot_solarpowerproduction
+      - columns:
+          - column_name: OpeningWeekendNorthAmerica
+            type: DECIMAL(38, 0)
+          - column_name: NorthAmerica
+            type: DECIMAL(38, 0)
+          - column_name: Budget
+            type: DECIMAL(38, 0)
+          - column_name: OtherTerritories
+            type: DECIMAL(38, 0)
+          - column_name: Worldwide
+            type: DECIMAL(38, 0)
+          - column_name: ReleaseDateUS
+            type: VARCHAR(16777216)
+          - column_name: Distributor
+            type: VARCHAR(16777216)
+          - column_name: Title
+            type: VARCHAR(16777216)
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: dbt_richard_blanchette_staging
+        table_name: Testing CSV upload
+      - columns:
+          - column_name: OpeningWeekendNorthAmerica
+            type: DECIMAL(38, 0)
+          - column_name: NorthAmerica
+            type: DECIMAL(38, 0)
+          - column_name: Budget
+            type: DECIMAL(38, 0)
+          - column_name: OtherTerritories
+            type: DECIMAL(38, 0)
+          - column_name: Worldwide
+            type: DECIMAL(38, 0)
+          - column_name: ReleaseDateUS
+            type: VARCHAR(16777216)
+          - column_name: Distributor
+            type: VARCHAR(16777216)
+          - column_name: Title
+            type: VARCHAR(16777216)
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: dbt_richard_blanchette_staging
+        table_name: Marvel Movie Data
+      - columns:
+          - column_name: DATE_INTERVAL_BEG
+            extra: "{}"
+            is_dttm: true
+            type: DATETIME
+          - column_name: WIND_SPEED_AVERAGE
+            extra: "{}"
+            type: FLOAT
+          - column_name: CALENDAR_ID
+            extra: "{}"
+            type: INT
+          - column_name: PARK_NAME
+            extra: "{}"
+            type: STRING
+          - column_name: PARK_ID
+            extra: "{}"
+            type: INT
+        main_dttm_col: DATE_INTERVAL_BEG
+        metrics:
+          - expression: COUNT(*)
+            extra: '{"warning_markdown":""}'
+            metric_name: count
+            verbose_name: COUNT(*)
+        schema: analytics
+        sql: "select *
+
+          from analytics.wind_speed_daily"
+        table_name: wind_speed_daily
+      - columns:
+          - column_name: month_interval_beg
+            is_dttm: true
+            type: TIMESTAMP_NTZ
+          - column_name: park_id
+            type: DECIMAL(38, 0)
+          - column_name: month_id
+            type: DECIMAL(38, 0)
+          - column_name: park_name
+            type: VARCHAR(16777216)
+          - column_name: contract_availability
+            type: FLOAT
+          - column_name: bop_availability
+            type: FLOAT
+          - column_name: project_availability
+            type: FLOAT
+        main_dttm_col: month_interval_beg
+        metrics:
+          - expression: COUNT(*)
+            metric_name: count
+            metric_type: count
+            verbose_name: COUNT(*)
+        schema: analytics
+        table_name: availabilities
+

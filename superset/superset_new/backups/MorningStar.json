@@ -1,0 +1,1523 @@
+{
+    "dashboards": [
+        {
+            "__Dashboard__": {
+                "css": "",
+                "dashboard_title": "Morningstar",
+                "description": null,
+                "json_metadata": "{\"show_native_filters\": true, \"color_scheme\": \"\", \"refresh_frequency\": 0, \"expanded_slices\": {}, \"label_colors\": {}, \"timed_refresh_immune_slices\": [], \"default_filters\": \"{}\", \"chart_configuration\": {}, \"native_filter_configuration\": [{\"id\": \"NATIVE_FILTER-1XmAwF8AG\", \"controlValues\": {\"enableEmptyFilter\": false}, \"name\": \"Date\", \"filterType\": \"filter_time\", \"targets\": [{}], \"defaultDataMask\": {\"extraFormData\": {}, \"filterState\": {}, \"ownState\": {}}, \"cascadeParentIds\": [], \"scope\": {\"rootPath\": [\"ROOT_ID\"], \"excluded\": [465, 466]}, \"type\": \"NATIVE_FILTER\", \"description\": \"\", \"chartsInScope\": [464, 467], \"tabsInScope\": []}], \"remote_id\": 15}",
+                "position_json": "{\"CHART-0DaH9-lYLR\":{\"children\":[],\"id\":\"CHART-0DaH9-lYLR\",\"meta\":{\"chartId\":467,\"height\":50,\"sliceName\":\"stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast\",\"uuid\":\"e560d3d4-364d-4f39-894f-cc29968c64cb\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-gSQ9WvKMV\"],\"type\":\"CHART\"},\"CHART-IPldjil2Vi\":{\"children\":[],\"id\":\"CHART-IPldjil2Vi\",\"meta\":{\"chartId\":471,\"height\":31,\"sliceName\":\"stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone zone\",\"uuid\":\"b95a5948-56fe-4929-8daa-d9f712199a92\",\"width\":10},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\",\"COLUMN-FSv2IBJ5RC\",\"ROW-vWq0zJrlJh\"],\"type\":\"CHART\"},\"CHART-OSeMxANBl4\":{\"children\":[],\"id\":\"CHART-OSeMxANBl4\",\"meta\":{\"chartId\":470,\"height\":63,\"sliceName\":\"ModelandWeatherZone Records\",\"uuid\":\"8139fc30-17a9-40ea-8554-1c62d7232a69\",\"width\":2},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\"],\"type\":\"CHART\"},\"CHART-gk6_aMr1vE\":{\"children\":[],\"id\":\"CHART-gk6_aMr1vE\",\"meta\":{\"chartId\":465,\"height\":50,\"sliceName\":\"stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute\",\"uuid\":\"cf169b76-bd82-49c0-b239-3be881882b4d\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pjhfvNLtP\"],\"type\":\"CHART\"},\"CHART-hMWYuqe-Xe\":{\"children\":[],\"id\":\"CHART-hMWYuqe-Xe\",\"meta\":{\"chartId\":468,\"height\":50,\"sliceName\":\"stg_morningstar_ercot_solarpowerproduction\",\"uuid\":\"3a352679-ab64-4f9b-b29c-95111538b13d\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-klRKSu0j0P\"],\"type\":\"CHART\"},\"CHART-oTIKb4fH37\":{\"children\":[],\"id\":\"CHART-oTIKb4fH37\",\"meta\":{\"chartId\":466,\"height\":30,\"sliceName\":\"stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone model\",\"uuid\":\"fb9d6838-5f9e-4ce4-bf62-eeaf9e16062d\",\"width\":10},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\",\"COLUMN-FSv2IBJ5RC\",\"ROW-d55SfzoC7e\"],\"type\":\"CHART\"},\"CHART-oxAH59UP2a\":{\"children\":[],\"id\":\"CHART-oxAH59UP2a\",\"meta\":{\"chartId\":464,\"height\":50,\"sliceName\":\"stg_morningstar_eroct_sevendayloadforecastsloadzoneabsolute\",\"uuid\":\"ae815c98-1822-41c0-9e18-3c9d5a014075\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-La1ESASdQ\"],\"type\":\"CHART\"},\"COLUMN-FSv2IBJ5RC\":{\"children\":[\"ROW-d55SfzoC7e\",\"ROW-vWq0zJrlJh\"],\"id\":\"COLUMN-FSv2IBJ5RC\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\",\"width\":10},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\"],\"type\":\"COLUMN\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"ROW-La1ESASdQ\",\"ROW-pjhfvNLtP\",\"ROW-BycIkK09I7\",\"ROW-gSQ9WvKMV\",\"ROW-klRKSu0j0P\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"Morningstar\"},\"type\":\"HEADER\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-BycIkK09I7\":{\"children\":[\"CHART-OSeMxANBl4\",\"COLUMN-FSv2IBJ5RC\"],\"id\":\"ROW-BycIkK09I7\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-La1ESASdQ\":{\"children\":[\"CHART-oxAH59UP2a\"],\"id\":\"ROW-La1ESASdQ\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-d55SfzoC7e\":{\"children\":[\"CHART-oTIKb4fH37\"],\"id\":\"ROW-d55SfzoC7e\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\",\"COLUMN-FSv2IBJ5RC\"],\"type\":\"ROW\"},\"ROW-gSQ9WvKMV\":{\"children\":[\"CHART-0DaH9-lYLR\"],\"id\":\"ROW-gSQ9WvKMV\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-klRKSu0j0P\":{\"children\":[\"CHART-hMWYuqe-Xe\"],\"id\":\"ROW-klRKSu0j0P\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-pjhfvNLtP\":{\"children\":[\"CHART-gk6_aMr1vE\"],\"id\":\"ROW-pjhfvNLtP\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-vWq0zJrlJh\":{\"children\":[\"CHART-IPldjil2Vi\"],\"id\":\"ROW-vWq0zJrlJh\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-BycIkK09I7\",\"COLUMN-FSv2IBJ5RC\"],\"type\":\"ROW\"}}",
+                "slices": [
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "dbt_ryan_meekins_staging.stg_morningstar_ercot_sevendayforecastloadzoneabsolute",
+                            "datasource_type": "table",
+                            "id": 464,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"75__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"published_local_datetime\", \"groupby\": [\"forecast_zone\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"slice_id\": \"464\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 464, \"datasource_name\": \"stg_morningstar_ercot_sevendayloadforecastloadzoneabsolute\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":75,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"published_local_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"forecast_zone\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"forecast_zone\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"forecast_zone\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"75__table\",\"slice_id\":\"464\",\"granularity_sqla\":\"published_local_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"forecast_zone\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_eroct_sevendayloadforecastsloadzoneabsolute",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "dbt_ryan_meekins_staging.stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute",
+                            "datasource_type": "table",
+                            "id": 465,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"81__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"published_local_datetime\", \"groupby\": [\"forecast_zone\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"slice_id\": \"465\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 465, \"datasource_name\": \"stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":81,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"published_local_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"forecast_zone\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"forecast_zone\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"forecast_zone\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"81__table\",\"slice_id\":\"465\",\"granularity_sqla\":\"published_local_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"forecast_zone\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics_staging.stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone",
+                            "datasource_type": "table",
+                            "id": 466,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"79__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"published_date\", \"groupby\": [\"model\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"slice_id\": \"466\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 466, \"datasource_name\": \"stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":79,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"published_date\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"model\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"model\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"model\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"79__table\",\"slice_id\":\"466\",\"granularity_sqla\":\"published_date\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"model\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone model",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "dbt_ryan_meekins_staging.stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast",
+                            "datasource_type": "table",
+                            "id": 467,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"83__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"published_date\", \"groupby\": [\"forecast_zone\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"show_value\": false, \"slice_id\": \"467\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 467, \"datasource_name\": \"stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":83,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"published_date\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"forecast_zone\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"forecast_zone\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"forecast_zone\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"83__table\",\"slice_id\":\"467\",\"granularity_sqla\":\"published_date\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"forecast_zone\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"show_value\":false,\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "dbt_ryan_meekins_staging.stg_morningstar_ercot_solarpowerproduction",
+                            "datasource_type": "table",
+                            "id": 468,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"84__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"utc_datetime\", \"groupby\": [], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 468, \"datasource_name\": \"stg_morningstar_ercot_solarpowerproduction\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":84,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"utc_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"84__table\",\"granularity_sqla\":\"utc_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_ercot_solarpowerproduction",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics_staging.stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone",
+                            "datasource_type": "table",
+                            "id": 470,
+                            "params": "{\"adhoc_filters\": [], \"datasource\": \"79__table\", \"extra_form_data\": {}, \"granularity_sqla\": \"utc_datetime\", \"header_font_size\": 0.4, \"metric\": \"count\", \"subheader_font_size\": 0.15, \"time_format\": \"smart_date\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"viz_type\": \"big_number_total\", \"y_axis_format\": \"SMART_NUMBER\", \"remote_id\": 470, \"datasource_name\": \"stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":79,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"utc_datetime\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[],\"metrics\":[\"count\"],\"annotation_layers\":[],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{}}],\"form_data\":{\"viz_type\":\"big_number_total\",\"datasource\":\"79__table\",\"granularity_sqla\":\"utc_datetime\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metric\":\"count\",\"adhoc_filters\":[],\"header_font_size\":0.4,\"subheader_font_size\":0.15,\"y_axis_format\":\"SMART_NUMBER\",\"time_format\":\"smart_date\",\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "ModelandWeatherZone Records",
+                            "viz_type": "big_number_total"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "analytics_staging.stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone",
+                            "datasource_type": "table",
+                            "id": 471,
+                            "params": "{\"adhoc_filters\": [], \"annotation_layers\": [], \"color_scheme\": \"supersetColors\", \"comparison_type\": \"values\", \"datasource\": \"79__table\", \"extra_form_data\": {}, \"forecastInterval\": 0.8, \"forecastPeriods\": 10, \"granularity_sqla\": \"published_date\", \"groupby\": [\"forecast_zone\"], \"legendOrientation\": \"top\", \"legendType\": \"scroll\", \"markerSize\": 6, \"metrics\": [\"count\"], \"only_total\": true, \"order_desc\": true, \"rich_tooltip\": true, \"row_limit\": 10000, \"show_legend\": true, \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"tooltipTimeFormat\": \"smart_date\", \"viz_type\": \"echarts_timeseries_line\", \"x_axis_time_format\": \"smart_date\", \"x_axis_title_margin\": 15, \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"y_axis_title_margin\": 15, \"y_axis_title_position\": \"Left\", \"zoomable\": true, \"remote_id\": 471, \"datasource_name\": \"stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone\", \"schema\": \"analytics_staging\", \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                            "query_context": "{\"datasource\":{\"id\":79,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"granularity\":\"published_date\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"forecast_zone\"],\"metrics\":[\"count\"],\"orderby\":[[\"count\",false]],\"annotation_layers\":[],\"row_limit\":10000,\"series_columns\":[\"forecast_zone\"],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{},\"is_timeseries\":true,\"time_offsets\":[],\"post_processing\":[null,null,null,{\"operation\":\"pivot\",\"options\":{\"index\":[\"__timestamp\"],\"columns\":[\"forecast_zone\"],\"aggregates\":{\"count\":{\"operator\":\"mean\"}},\"drop_missing_columns\":false}},null,null,null]}],\"form_data\":{\"viz_type\":\"echarts_timeseries_line\",\"datasource\":\"79__table\",\"slice_id\":466,\"granularity_sqla\":\"published_date\",\"time_grain_sqla\":\"P1D\",\"time_range\":\"No filter\",\"metrics\":[\"count\"],\"groupby\":[\"forecast_zone\"],\"adhoc_filters\":[],\"order_desc\":true,\"row_limit\":10000,\"comparison_type\":\"values\",\"annotation_layers\":[],\"forecastPeriods\":10,\"forecastInterval\":0.8,\"x_axis_title_margin\":15,\"y_axis_title_margin\":15,\"y_axis_title_position\":\"Left\",\"color_scheme\":\"supersetColors\",\"only_total\":true,\"markerSize\":6,\"zoomable\":true,\"show_legend\":true,\"legendType\":\"scroll\",\"legendOrientation\":\"top\",\"x_axis_time_format\":\"smart_date\",\"rich_tooltip\":true,\"tooltipTimeFormat\":\"smart_date\",\"y_axis_format\":\"SMART_NUMBER\",\"y_axis_bounds\":[null,null],\"extra_form_data\":{},\"force\":false,\"result_format\":\"json\",\"result_type\":\"full\"},\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone zone",
+                            "viz_type": "echarts_timeseries_line"
+                        }
+                    }
+                ],
+                "slug": null
+            }
+        }
+    ],
+    "datasources": [
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "market_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1887,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "048145d3-60aa-4bec-b88f-3d22d722b61c",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "feed_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1888,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "26d88ac0-d165-4456-9993-5a3a7933bbc1",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1889,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "10ac6a3b-e666-4460-a246-cb41795e928b",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "published_date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1890,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "DATE",
+                            "uuid": "a4b94ac0-f961-44e2-b3a0-f3cd698ed723",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "forecast_zone",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1891,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "6f46eddb-5656-4977-9035-305f4c6e05b8",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "forecast_day",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1892,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "b3335b55-3c74-4751-986b-f51d574e3a37",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "forecast_value",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1893,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "FLOAT",
+                            "uuid": "ccbc214e-734a-4340-9ed8-41409383641a",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "dstflag",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1894,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "93e4bf8a-f132-4b76-bb9f-cf2a6b22ded8",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "column_name": "_loaded_at",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1895,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 83,
+                            "type": "TIMESTAMP_TZ",
+                            "uuid": "269f2ae8-9b36-435e-8200-5c09f7938e9c",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-30T21:13:22"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:51:09"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 95,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 83,
+                            "uuid": "82f77b9b-2111-483b-aa54-328dbfec6548",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 83, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": "",
+                "table_name": "stg_morningstar_ercot_hourlywindpowerproductionbyregionforecast",
+                "template_params": null
+            }
+        },
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "market_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1896,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "72df0d0d-52c0-495d-9e2b-dc7eae9256f1",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "feed_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1897,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "cd54fc82-5e3c-43bf-9903-dfa86ff32c61",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1898,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "035c1add-e137-44e3-8bfd-a443c6acea8a",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "pubcol",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1899,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "5bff8b51-1b8c-47e0-b0a9-119584c949ee",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "pubval",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1900,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "FLOAT",
+                            "uuid": "839c5d27-57d9-411f-b6a6-307f6038d2e7",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "column_name": "_loaded_at",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1901,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 84,
+                            "type": "TIMESTAMP_TZ",
+                            "uuid": "4d532821-56fa-4efc-84b3-6613a32d2a4c",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:46:52"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:55:07"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 96,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 84,
+                            "uuid": "adabd632-65f9-4a19-afaa-5f2a52890513",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 84, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": "",
+                "table_name": "stg_morningstar_ercot_solarpowerproduction",
+                "template_params": null
+            }
+        },
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "market_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1867,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "6b7a9bcc-3e30-4d03-ac62-a3f8572e0967",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "feed_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1868,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "774e0600-fba4-46af-819f-52b841f8bc1d",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1869,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "c6efe610-2be3-4080-b0d0-4fcccd92f181",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "published_date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1870,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "DATE",
+                            "uuid": "91243051-f23d-4f4a-8a84-df6d0b4a4aa8",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "forecast_day",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1871,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "ba3a75a0-cd4f-4e20-8254-de8ec425a138",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "forecast_zone",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1872,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "6eccf9e5-411f-434c-9a9b-a4a29aafdf98",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "model",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1873,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "67c61308-7f42-46bb-a1c2-bdfee094f7b5",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "forecast_value",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1874,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "FLOAT",
+                            "uuid": "fc032e1a-1f08-4563-a8bc-c4b12d9555c8",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "column_name": "_loaded_at",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1875,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 79,
+                            "type": "TIMESTAMP_TZ",
+                            "uuid": "a3d903da-66bb-4643-8cbb-43c8c1676071",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:51"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:16:38"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 93,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 79,
+                            "uuid": "349d9dc9-aff8-48d1-bb8f-d8b05d9b19b7",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 79, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": "",
+                "table_name": "stg_morningstar_ercot_sevendayloadforecastmodelandweatherzone",
+                "template_params": null
+            }
+        },
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "market_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1876,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "f6934161-ac1f-43e5-92c9-db9453d798f0",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "feed_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1877,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "f5be787e-dbd9-470b-969a-2ce1b18322d5",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1878,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "b7b27858-8f0d-4ed9-ac03-55194e9731d0",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1879,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "8c0bbecb-7f7a-433c-9026-3d2c8f7ab9ca",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "published_local_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1880,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "ea9f74a9-2dac-4bca-a9c9-2b54f00f73b4",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "published_utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1881,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "ed1ba561-f53f-4655-9529-75de2ae07ad0",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "published_date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1882,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "24a5cb31-6311-48f5-b715-b82e8fedf8d7",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "published_hour",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1883,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "5b63a107-7383-4b03-a10b-8b3d99f887b3",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "forecast_zone",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1884,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "61e40021-0c24-4d41-83a1-f1eabd679fab",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "forecast_value",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1885,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "FLOAT",
+                            "uuid": "99f136ca-c4eb-4541-95e7-e08fe6012ede",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "column_name": "_loaded_at",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1886,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 81,
+                            "type": "TIMESTAMP_TZ",
+                            "uuid": "10b86d38-277e-4af1-8c86-ae9d7eb337f5",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:47:25"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T20:29:25"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 94,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 81,
+                            "uuid": "653bbf86-e20b-4621-8ba9-53d94d822d54",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 81, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": "",
+                "table_name": "stg_morningstar_ercot_sevendayloadforecastweatherzoneabsolute",
+                "template_params": null
+            }
+        },
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "published_utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1860,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "037a272d-9b8b-4c7a-9809-bc1b33cc2c34",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "published_date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1861,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "52dc2971-061d-4d9e-a692-6703ea22eacd",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "published_hour",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1862,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "11f3a5ce-19ae-4ca0-9778-b8df6a7618fa",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "feed_name",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1863,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "43de42ac-dd6e-45ae-942a-847c12825cca",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "forecast_zone",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1864,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "4c2724e6-bff2-4a9f-9699-ad73e075a091",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "forecast_value",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1865,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "FLOAT",
+                            "uuid": "92e0e1f1-ff52-4801-89cd-093d37f67c16",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "_loaded_at",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1866,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "TIMESTAMP_TZ",
+                            "uuid": "16ef3cbc-edae-41c6-8a48-72221ad90436",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "market_id",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1856,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "DECIMAL(38, 0)",
+                            "uuid": "4a876dbc-2d42-48df-92ca-6d7fc0368813",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "utc_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1857,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "4b0a9e53-2104-4087-859e-15763ed94765",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "date",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1858,
+                            "is_active": null,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "VARCHAR(16777216)",
+                            "uuid": "15079517-ef51-482b-bdf6-9b0514a5b8cf",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "column_name": "published_local_datetime",
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "extra": "{\"warning_markdown\":null}",
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1859,
+                            "is_active": null,
+                            "is_dttm": true,
+                            "python_date_format": null,
+                            "table_id": 75,
+                            "type": "TIMESTAMP_NTZ",
+                            "uuid": "308db4e3-c421-46fe-90c8-c39b30ef6d2a",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 2,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": "utc_datetime",
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 4,
+                            "changed_on": {
+                                "__datetime__": "2022-03-31T15:48:23"
+                            },
+                            "created_by_fk": 4,
+                            "created_on": {
+                                "__datetime__": "2022-03-28T19:57:24"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": "{\"warning_markdown\":\"\"}",
+                            "id": 92,
+                            "metric_name": "count",
+                            "metric_type": null,
+                            "table_id": 75,
+                            "uuid": "1fc6f117-e650-433d-90c6-da36e1a1a6fd",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 75, \"database_name\": \"Apex_Snowflake_Analytics\"}",
+                "schema": "analytics_staging",
+                "sql": "",
+                "table_name": "stg_morningstar_ercot_sevendayloadforecastloadzoneabsolute",
+                "template_params": null
+            }
+        }
+    ]
+}
